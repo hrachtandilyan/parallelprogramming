@@ -32,7 +32,7 @@ namespace ParallelProgrammingDemo.Helpers
                 }
                 else
                 {
-                    this.GenerateRandomMatrix(2);
+                    this.GenerateRandomMatrix();
                 }
             });
 
@@ -51,7 +51,7 @@ namespace ParallelProgrammingDemo.Helpers
         /// <param name="height">optional height parameter</param>
         /// <param name="width">optional width parameter</param>
         /// <returns></returns>
-        private Matrix<float> GenerateRandomMatrix(float test, int height = 1024, int width = 512)
+        private Matrix<float> GenerateRandomMatrix(int height = 1024, int width = 512)
         {
             var matrix = new Matrix<float>(height, width);
         
