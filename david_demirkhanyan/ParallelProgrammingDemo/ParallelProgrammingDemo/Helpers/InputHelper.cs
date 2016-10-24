@@ -4,35 +4,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ParallelProgrammingDemo.Entities;
-
+using System.IO;
+using Microsoft.VisualBasic.FileIO;
+using NLog;
 
 namespace ParallelProgrammingDemo.Helpers
 {
-    public class InputHelper<T>
+    public class InputHelper
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// Instatiates the Query Vector Set and Data Vector sets
         /// </summary>
         /// <param name="querySetFilePath">optional parameter, if set to null will read default query set file or randomize input</param>
         /// <param name="dataSetFilePath">optional parameter, if set to null will read default data set file or randomize input</param>
         /// <returns></returns>
-        public ComputationRequest<T> GetQueryAndDistanceMatrix(string querySetFilePath = null, string dataSetFilePath = null)
+        public ComputationRequest<float> GetQueryAndDistanceMatrixFromFile(string querySetFilePath = null, string dataSetFilePath = null)
         {
-            var computationRequest = new ComputationRequest<T>();
+            var computationRequest = new ComputationRequest<float>();
 
-            var fillMatrix = new Action<Matrix<T>, string, bool, string>((target, providedPath, isDefaultEnabled, defaultPath) =>
+            var fillMatrix = new Action<Matrix<float>, string, bool, string>((target, providedPath, isDefaultEnabled, defaultPath) =>
             {
                 if(!String.IsNullOrEmpty(providedPath))
                 {
-                    target = this.ParseCSVFile(providedPath);
+                    var parsedFile = this.ParseCSVFile(providedPath);
+
+                    target = (parsedFile != null) ? parsedFile : new RandomFloatMatrix();
                 }
                 else if(String.IsNullOrEmpty(providedPath) && isDefaultEnabled)
                 {
-                    target = this.ParseCSVFile(defaultPath);
+                    var parsedFile = this.ParseCSVFile(defaultPath);
+
+                    target = (parsedFile != null) ? parsedFile : new RandomFloatMatrix();
                 }
                 else
                 {
-                    this.GenerateRandomMatrix();
+                    target = new RandomFloatMatrix();
                 }
             });
 
@@ -44,34 +52,48 @@ namespace ParallelProgrammingDemo.Helpers
 
             return computationRequest;
         }
-
-        /// <summary>
-        /// Generates a random matrix
-        /// </summary>
-        /// <param name="height">optional height parameter</param>
-        /// <param name="width">optional width parameter</param>
-        /// <returns></returns>
-        private Matrix<float> GenerateRandomMatrix(int height = 1024, int width = 512)
-        {
-            var matrix = new Matrix<float>(height, width);
         
-            //TO-DO: randomize Matrix
-
-            return matrix;
-        }
-
         /// <summary>
         /// parses a CSV file to a T type Matrix
         /// </summary>
         /// <param name="filePath">absolute path to the csv file</param>
         /// <returns></returns>
-        private Matrix<T> ParseCSVFile(string filePath)
+        private Matrix<float> ParseCSVFile(string filePath)
         {
-            var matrix = new Matrix<T>();
+            try
+            {
+                var temporaryMatrix = new List<List<float>>();
 
-            //TO-DO: Implement parsing logic
+                using (var parser = new TextFieldParser(filePath))
+                {
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters(",");
 
-            return matrix;
+                    while (!parser.EndOfData)
+                    {
+                        var temporaryRow = new List<float>();
+
+                        string[] fields = parser.ReadFields();
+                        foreach (string field in fields)
+                        {
+                            temporaryRow.Add(float.Parse(field));
+                        }
+
+                        temporaryMatrix.Add(temporaryRow);
+                    }
+                }
+
+                return new Matrix<float>(temporaryMatrix);
+            }
+            catch(Exception ex)
+            {
+                logger.Log(LogLevel.Error, ex);
+                return null;
+            }
+            
         }
+
+
+
     }
 }

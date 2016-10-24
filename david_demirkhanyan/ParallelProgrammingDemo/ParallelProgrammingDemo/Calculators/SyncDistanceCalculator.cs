@@ -7,7 +7,7 @@ using ParallelProgrammingDemo.Entities;
 
 namespace ParallelProgrammingDemo.Calculators
 {
-    public class SyncDistanceCalculator : IDistanceCalculator
+    public class SyncDistanceCalculator : BaseCalculator, IDistanceCalculator
     {
         /// <summary>
         /// Evaluates the distance between the according vectors and the overall running time

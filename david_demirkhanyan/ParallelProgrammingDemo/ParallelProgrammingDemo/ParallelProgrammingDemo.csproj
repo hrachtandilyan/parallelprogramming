@@ -37,6 +37,11 @@
       <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.3.10\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -48,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculators\BaseCalculator.cs" />
     <Compile Include="Calculators\DistanceCalculatorFactory.cs" />
     <Compile Include="Calculators\IDistanceCalculator.cs" />
     <Compile Include="Calculators\MPIDistanceCalculator.cs" />
@@ -56,6 +62,7 @@
     <Compile Include="Calculators\SyncDistanceCalculator.cs" />
     <Compile Include="Entities\ComputationRequest.cs" />
     <Compile Include="Entities\ComputationResult.cs" />
+    <Compile Include="Entities\RandomFloatMatrix.cs" />
     <Compile Include="Entities\Matrix.cs" />
     <Compile Include="Entities\Options.cs" />
     <Compile Include="Enums\CalculatorType.cs" />

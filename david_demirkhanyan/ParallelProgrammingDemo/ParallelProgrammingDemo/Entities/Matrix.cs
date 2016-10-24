@@ -8,9 +8,9 @@ namespace ParallelProgrammingDemo.Entities
 {
     public class Matrix<T>
     {
-        private List<List<T>> matrixValues;
-        private int height;
-        private int width;
+        protected List<List<T>> matrixValues;
+        protected int height;
+        protected int width;
 
         /// <summary>
         /// Initializes a matrix of type T
@@ -24,7 +24,20 @@ namespace ParallelProgrammingDemo.Entities
             this.width = width;
         }
 
+        /// <summary>
+        /// Initializes matrix with given values
+        /// </summary>
+        /// <param name="matrixValues"></param>
+        public Matrix(List<List<T>> matrixValues)
+        {
+            this.matrixValues = matrixValues;
+        }
 
+        /// <summary>
+        /// Initializes a matrix with given dimensions and elements equal to zero 
+        /// </summary>
+        /// <param name="height"></param>
+        /// <param name="width"></param>
         private void InitializeMatrix(int height, int width)
         {
             this.matrixValues = new List<List<T>>(height);
@@ -63,12 +76,10 @@ namespace ParallelProgrammingDemo.Entities
                 matrixValues[verticalIndex][horizontalIndex] = element;
                 return true;
             }
-
             else
             {
                 return false;
             }
         }
-
     }
 }
