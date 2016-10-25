@@ -18,10 +18,7 @@ namespace ParallelProgrammingDemo
 
             if(CommandLine.Parser.Default.ParseArguments(args,options))
             {
-                var inputHeper = new InputHelper(); 
-
-                DistanceCalculatorFactory
-                DistanceCalculatorFactory.GetCalculator(options.ComputationType).GetComputationResult(inputHeper.GetQueryAndDistanceMatrix());
+               
             }
             else
             {
