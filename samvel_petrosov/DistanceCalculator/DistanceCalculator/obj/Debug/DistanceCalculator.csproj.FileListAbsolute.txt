@@ -1,0 +1,5 @@
+C:\Users\Samvel\Desktop\pp\parallelprogramming\samvel_petrosov\DistanceCalculator\DistanceCalculator\bin\Debug\DistanceCalculator.exe.config
+C:\Users\Samvel\Desktop\pp\parallelprogramming\samvel_petrosov\DistanceCalculator\DistanceCalculator\bin\Debug\DistanceCalculator.exe
+C:\Users\Samvel\Desktop\pp\parallelprogramming\samvel_petrosov\DistanceCalculator\DistanceCalculator\bin\Debug\DistanceCalculator.pdb
+C:\Users\Samvel\Desktop\pp\parallelprogramming\samvel_petrosov\DistanceCalculator\DistanceCalculator\obj\Debug\DistanceCalculator.exe
+C:\Users\Samvel\Desktop\pp\parallelprogramming\samvel_petrosov\DistanceCalculator\DistanceCalculator\obj\Debug\DistanceCalculator.pdb
