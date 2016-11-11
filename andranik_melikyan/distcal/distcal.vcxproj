@@ -145,6 +145,7 @@
     <ClCompile Include="config.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="process.cpp" />
+    <ClCompile Include="utilities\types.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="calculation\engine.h" />
@@ -155,7 +156,6 @@
     <ClInclude Include="process.h" />
     <ClInclude Include="utilities\exception.h" />
     <ClInclude Include="utilities\log.h" />
-    <ClInclude Include="utilities\setfetcher.h" />
     <ClInclude Include="utilities\timer.h" />
     <ClInclude Include="utilities\types.h" />
   </ItemGroup>

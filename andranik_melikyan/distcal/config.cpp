@@ -8,9 +8,9 @@ namespace distcal
    {
       const std::string defaultQueryFilename = "";
       const std::string defaultDatasetFilename = "";
-      const int         defaultVectorSize = 512;
-      const int         defaultQueryCount = 1024;
-      const int         defaultDatasetCount = 1024;
+      const int         defaultVectorSize = 10;
+      const int         defaultQueryCount = 10;
+      const int         defaultDatasetCount = 10;
 
       template <class T> 
       T getParam(const std::string& name, T defaultValue)

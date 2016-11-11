@@ -12,6 +12,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="process.cpp" />
     <ClCompile Include="config.cpp" />
+    <ClCompile Include="utilities\types.cpp">
+      <Filter>utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="process.h" />
@@ -20,9 +23,6 @@
       <Filter>utilities</Filter>
     </ClInclude>
     <ClInclude Include="utilities\log.h">
-      <Filter>utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="utilities\setfetcher.h">
       <Filter>utilities</Filter>
     </ClInclude>
     <ClInclude Include="utilities\timer.h">
