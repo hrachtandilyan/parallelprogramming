@@ -11,17 +11,17 @@ namespace distcal
       class QuadraticEngine : public GenericEngine
       {
       public:
-         QuadraticEngine( types::DataSet* dataset, types::DataSet* queries, types::DataSet* result )
+         QuadraticEngine( const DataSet& dataset, const DataSet& queries, DataSet& result )
             :GenericEngine( dataset, queries, result ) { };
 
       private:
-         virtual void engineImpl()
+         virtual void engineImpl( DistanceMetric distance )
          {
-            for( int i = 0; i < m_datasetPtr->size(); ++i )
+            for( unsigned int i = 0; i < m_dataset.size(); ++i )
             {
-               for( int j = 0; j < m_queriesPtr->size(); ++j )
+               for( unsigned int j = 0; j < m_queries.size(); ++j )
                {
-                  (*m_resultPtr)[i][j] = m_distFunc(m_datasetPtr->at(i), m_queriesPtr->at(j));
+                  m_result[i][j] = distance(m_dataset[i], m_queries[j]);
                }
             }
          }		 

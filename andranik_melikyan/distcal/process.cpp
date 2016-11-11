@@ -8,7 +8,8 @@ namespace distcal
       :m_config( argc, argv ), 
        m_dataset( m_config.datasetCount, m_config.vectorSize ),
        m_queries( m_config.queryCount, m_config.vectorSize ), 
-       m_result( m_config.datasetCount, m_config.queryCount )
+       m_result( m_config.datasetCount, m_config.queryCount ),
+       m_engine( m_dataset, m_queries, m_result )
    {
       /*
       m_config.queryFilename = "queries.txt";         // temporary for testing
@@ -24,10 +25,9 @@ namespace distcal
       m_dataset.fetch( m_config.datasetFilename );
       m_queries.fetch( m_config.queryFilename );
 
-      m_engine.setEngineAndInit( calculation::EngineType::QUADRATIC_TYPE, Metric::MetricType::L2_TYPE, &m_dataset, &m_queries, &m_result );
       m_engine.start();
 
-      std::cout << m_result;
+      std::cout << m_result << std::endl;
    }
 
 }; //namespace distcal

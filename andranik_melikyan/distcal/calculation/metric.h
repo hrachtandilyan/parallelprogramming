@@ -1,11 +1,15 @@
 #pragma once
 
 #include <cmath>
+#include <functional>
 
-#include "../utilities/types.h"
+#include "../dataset.h"
 
 namespace distcal
 {
+   typedef double( *DistanceMetricPtr )(const DataVector&, const DataVector&);
+   typedef std::function<double( const DataVector&, const DataVector& )> DistanceMetric;
+
    class Metric
    {
    public:
@@ -16,32 +20,31 @@ namespace distcal
          L2_TYPE
       };
 
-
-      static double Hamming(const types::DataVector& lhs, const types::DataVector& rhs)
+      static double Hamming(const DataVector& lhs, const DataVector& rhs)
       {
          const double eps = 1e-10;
          double res = 0;
-         for (int i = 0; i < lhs.size(); ++i)
+         for ( unsigned int i = 0; i < lhs.size(); ++i )
          {
             res += (int)(lhs[i] + rhs[i] + eps) % 2;
          }
          return res;
       }
 
-      static double L1(const types::DataVector& lhs, const types::DataVector& rhs)
+      static double L1(const DataVector& lhs, const DataVector& rhs)
       {
          double res = 0;
-         for (int i = 0; i < lhs.size(); ++i)
+         for ( unsigned int i = 0; i < lhs.size(); ++i )
          {
             res += std::abs(lhs[i] - rhs[i]);
          }
          return res;
       }
 
-      static double L2(const types::DataVector& lhs, const types::DataVector& rhs)
+      static double L2(const DataVector& lhs, const DataVector& rhs)
       {
          double res = 0;
-         for (int i = 0; i < lhs.size(); ++i)
+         for ( unsigned int i = 0; i < lhs.size(); ++i )
          {
             double delta = lhs[i] - rhs[i];
             res += delta * delta;

@@ -12,9 +12,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="process.cpp" />
     <ClCompile Include="config.cpp" />
-    <ClCompile Include="utilities\types.cpp">
-      <Filter>utilities</Filter>
-    </ClCompile>
+    <ClCompile Include="dataset.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="process.h" />
@@ -26,9 +24,6 @@
       <Filter>utilities</Filter>
     </ClInclude>
     <ClInclude Include="utilities\timer.h">
-      <Filter>utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="utilities\types.h">
       <Filter>utilities</Filter>
     </ClInclude>
     <ClInclude Include="calculation\engine.h">
@@ -43,5 +38,6 @@
     <ClInclude Include="calculation\quadratic.h">
       <Filter>calculation</Filter>
     </ClInclude>
+    <ClInclude Include="dataset.h" />
   </ItemGroup>
 </Project>

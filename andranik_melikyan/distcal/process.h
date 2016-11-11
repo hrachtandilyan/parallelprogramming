@@ -4,7 +4,7 @@
 
 #include "config.h"
 #include "calculation/engine.h"
-#include "utilities/types.h"
+#include "dataset.h"
 
 namespace distcal
 {
@@ -17,9 +17,9 @@ namespace distcal
    private:
       config::Config m_config;
 
-      types::DataSet m_dataset;
-      types::DataSet m_queries;
-      types::DataSet m_result;
+      DataSet m_dataset;
+      DataSet m_queries;
+      DataSet m_result;
 
       calculation::Engine m_engine;
    };
