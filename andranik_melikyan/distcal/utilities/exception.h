@@ -3,4 +3,4 @@
 namespace distcal
 {
 
-}; //namespace dist
+}; //namespace distcal

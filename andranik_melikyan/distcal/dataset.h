@@ -32,4 +32,4 @@ namespace distcal
 
    std::ostream& operator <<( std::ostream& out, const DataSet& rhs );
 
-}; //namespace distcalc
+}; //namespace distcal

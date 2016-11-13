@@ -54,4 +54,4 @@ namespace distcal
       return out;
    }
 
-}; //namespace distcalc
+}; //namespace distcal

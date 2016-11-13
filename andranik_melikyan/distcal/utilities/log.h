@@ -27,7 +27,7 @@ namespace distcal
          Buffer() 
          { }
          
-         Buffer( std::shared_ptr<std::ostream> stream, std::string prefix)
+         Buffer( std::shared_ptr<std::ostream> stream, const std::string& prefix)
             :m_stream(stream), m_prefix(prefix)
          { }
 
@@ -64,6 +64,9 @@ namespace distcal
 	private:
 		Log()
 		{ }
+
+      Log(const Log& rhs)
+      { }
 
    public:
 		static Log& instance() 

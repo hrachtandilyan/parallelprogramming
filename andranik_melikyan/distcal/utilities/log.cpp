@@ -60,4 +60,4 @@ namespace distcal
       return Buffer(Log::instance().m_stream, "DEBUG:   ");
    }
 
-}; //namespace dist
+}; //namespace distcal

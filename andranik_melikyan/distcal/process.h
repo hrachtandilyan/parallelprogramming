@@ -24,5 +24,5 @@ namespace distcal
       calculation::Engine m_engine;
    };
 
-}; //namespace distcalc
+}; //namespace distcal
 

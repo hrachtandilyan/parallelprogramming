@@ -28,4 +28,4 @@ namespace distcal
       std::chrono::duration<float> m_duration;
       std::chrono::high_resolution_clock::time_point m_start;
    };
-}; //namespace distcalc
+}; //namespace distcal
