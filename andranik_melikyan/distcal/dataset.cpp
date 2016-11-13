@@ -9,15 +9,15 @@
 
 namespace distcal
 {
-   void DataSet::fetch( std::string filename )
+   void DataSet::fetch( const std::string& filename )
    {
-      std::ifstream fin( filename.c_str() );
-      if( !fin.is_open() )
+      if( filename.empty() )
       {
          randomize( 0., 100. );
          return;
       }
 
+	  std::ifstream fin(filename.c_str());
       for( unsigned int i = 0; i < m_size; ++i )
       {
          for( unsigned int j = 0; j < m_dimension; ++j )
@@ -48,7 +48,8 @@ namespace distcal
       {
          for( unsigned int j = 0; j < rhs.dimension(); ++j )
             out << std::setw( 7 ) << rhs[i][j] << ' ';
-         out << std::endl;
+         if( i != rhs.size() - 1 )
+            out << std::endl;
       }
       return out;
    }

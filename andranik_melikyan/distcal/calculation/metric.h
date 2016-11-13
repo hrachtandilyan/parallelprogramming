@@ -7,7 +7,6 @@
 
 namespace distcal
 {
-   typedef double( *DistanceMetricPtr )(const DataVector&, const DataVector&);
    typedef std::function<double( const DataVector&, const DataVector& )> DistanceMetric;
 
    class Metric

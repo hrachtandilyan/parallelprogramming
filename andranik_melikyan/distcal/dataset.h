@@ -14,12 +14,11 @@ namespace distcal
          :m_size( size ), m_dimension( dimension ), m_dataset( size, DataVector( dimension ) )
       { }
 
-      void fetch( std::string filename = "" );
+      void fetch( const std::string& filename = "" );
 
       size_t size() const { return m_size; }
       size_t dimension() const { return m_dimension; }
 
-      DataVector& at( size_t index ) { return m_dataset.at(index); }
       DataVector& operator[]( size_t index ) { return m_dataset[index]; }
       const DataVector& operator[]( size_t index ) const { return m_dataset[index]; }
  

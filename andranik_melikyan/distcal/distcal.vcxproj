@@ -146,6 +146,7 @@
     <ClCompile Include="dataset.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="process.cpp" />
+    <ClCompile Include="utilities\log.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="calculation\engine.h" />

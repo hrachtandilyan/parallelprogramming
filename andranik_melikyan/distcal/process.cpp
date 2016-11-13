@@ -1,6 +1,8 @@
 #include "process.h"
+#include "utilities/log.h"
 
 #include <iostream>
+#include <fstream>
 
 namespace distcal
 {
@@ -14,18 +16,19 @@ namespace distcal
       /*
       m_config.queryFilename = "queries.txt";         // temporary for testing
       m_config.datasetFilename = "dataset.txt";       //
-      m_config.datasetCount = 3;                      //
-      m_config.queryCount = 2;                        //
-      m_config.vectorSize = 3;                        //
       */
+
+	   Log::instance().init(Log::Level::INFO, "logfile.txt");
    };
 
    void Process::run()
    {
+      Log::Info() << "I work";
       m_dataset.fetch( m_config.datasetFilename );
       m_queries.fetch( m_config.queryFilename );
-
+      Log::Info() << "Data fetched, calculating";
       m_engine.start();
+      Log::Info() << "Done\n";
 
       std::cout << m_result << std::endl;
    }

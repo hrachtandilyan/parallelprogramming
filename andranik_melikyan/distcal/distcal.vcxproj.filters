@@ -13,6 +13,9 @@
     <ClCompile Include="process.cpp" />
     <ClCompile Include="config.cpp" />
     <ClCompile Include="dataset.cpp" />
+    <ClCompile Include="utilities\log.cpp">
+      <Filter>utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="process.h" />
