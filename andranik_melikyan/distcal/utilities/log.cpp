@@ -18,27 +18,27 @@ namespace distcal
 		return *m_instance << "\n";
 	}
 
-	const Log& Log::Fatal()
+	const Log& Log::fatal()
 	{
 		m_instance->setIgnore(Log::FATAL > m_instance->m_level);
 		return *m_instance << "\nFATAL:   ";
 	}
-	const Log& Log::Error()
+	const Log& Log::error()
 	{
 		m_instance->setIgnore(Log::ERROR > m_instance->m_level);
 		return *m_instance << "\nERROR:   ";
 	}
-	const Log& Log::Warning()
+	const Log& Log::warning()
 	{
 		m_instance->setIgnore(Log::WARNING > m_instance->m_level);
 		return *m_instance << "\nWARNING: ";
 	}
-	const Log& Log::Info()
+	const Log& Log::info()
 	{
 		m_instance->setIgnore(Log::INFO > m_instance->m_level);
 		return *m_instance << "\nINFO:    ";
 	}
-	const Log& Log::Debug()
+	const Log& Log::debug()
 	{
 		m_instance->setIgnore(Log::DEBUG > m_instance->m_level);
 		return *m_instance << "\nDEBUG:   ";

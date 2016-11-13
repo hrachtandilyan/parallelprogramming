@@ -9,13 +9,13 @@ namespace distcal
 	class Log
 	{
 	public:
-		enum Level
-		{
-			FATAL = 0,
-			ERROR,
-			WARNING,
-			INFO,
-			DEBUG
+      enum Level
+      {
+         FATAL   = 0,
+         ERROR   = 0,
+         WARNING = 1,
+         INFO    = 2,
+         DEBUG   = 3
 		};
 
 	private:
@@ -34,11 +34,11 @@ namespace distcal
 		void init(Level level, const std::string& filename);
 		
 		static const Log& log();
-		static const Log& Fatal();
-		static const Log& Error();
-		static const Log& Warning();
-		static const Log& Info();
-		static const Log& Debug();
+		static const Log& fatal();
+		static const Log& error();
+		static const Log& warning();
+		static const Log& info();
+		static const Log& debug();
 
 		template <typename Item>
 		const Log& operator << (const Item& item) const { return push(item); }
