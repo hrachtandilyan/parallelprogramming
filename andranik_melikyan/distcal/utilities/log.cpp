@@ -2,45 +2,62 @@
 
 #include "log.h"
 
+#include <fstream>
+
 namespace distcal
 {
 	Log* Log::m_instance;
 
+   void Log::init(Level level, const std::ostream& out)
+   {
+      m_level = level;
+      m_stream = std::auto_ptr<std::ostream>(new std::ostream(out.rdbuf()));
+   }
+
 	void Log::init(Level level, const std::string& stream)
-	{ 
+	{
 		m_level = level;
-		m_stream = std::auto_ptr<std::ofstream>(new std::ofstream(stream));
+      m_stream = std::auto_ptr<std::ostream>(new std::ofstream(stream));
 	}
 
-	const Log& Log::log()
-	{ 
-		m_instance->setIgnore(true);
-		return *m_instance << "\n";
+   Log::Buffer Log::log()
+   {
+      return Buffer(Log::instance().m_stream, "");
+   }
+
+   Log::Buffer Log::fatal()
+   {
+      if (Log::FATAL > m_instance->m_level)
+         return Buffer();
+      return Buffer(Log::instance().m_stream, "FATAL:   ");
+   }
+
+   Log::Buffer Log::error()
+   {
+      if (Log::ERROR > m_instance->m_level)
+         return Buffer();
+      return Buffer(Log::instance().m_stream, "ERROR:   ");
+   }
+
+   Log::Buffer Log::warning()
+   {
+      if (Log::WARNING > m_instance->m_level)
+         return Buffer();
+      return Buffer(Log::instance().m_stream, "WARNING: ");
+   }
+
+	Log::Buffer Log::info()
+	{
+      if (Log::INFO > m_instance->m_level)
+         return Buffer();
+		return Buffer(Log::instance().m_stream, "INFO:    ");
 	}
 
-	const Log& Log::fatal()
-	{
-		m_instance->setIgnore(Log::FATAL > m_instance->m_level);
-		return *m_instance << "\nFATAL:   ";
-	}
-	const Log& Log::error()
-	{
-		m_instance->setIgnore(Log::ERROR > m_instance->m_level);
-		return *m_instance << "\nERROR:   ";
-	}
-	const Log& Log::warning()
-	{
-		m_instance->setIgnore(Log::WARNING > m_instance->m_level);
-		return *m_instance << "\nWARNING: ";
-	}
-	const Log& Log::info()
-	{
-		m_instance->setIgnore(Log::INFO > m_instance->m_level);
-		return *m_instance << "\nINFO:    ";
-	}
-	const Log& Log::debug()
-	{
-		m_instance->setIgnore(Log::DEBUG > m_instance->m_level);
-		return *m_instance << "\nDEBUG:   ";
-	}
+   Log::Buffer Log::debug()
+   {
+      if (Log::DEBUG > m_instance->m_level)
+         return Buffer();
+      return Buffer(Log::instance().m_stream, "DEBUG:   ");
+   }
+
 }; //namespace dist

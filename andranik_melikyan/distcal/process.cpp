@@ -1,5 +1,6 @@
 #include "process.h"
 #include "utilities/log.h"
+#include "utilities/timer.h"
 
 #include <iostream>
 #include <fstream>
@@ -28,9 +29,11 @@ namespace distcal
       m_queries.fetch( m_config.query_filename );
 
       Log::info() << "Data fetched, calculating";
+      Timer t;
+      t.start();
       m_engine.start();
-
-      Log::info() << "Done\n";
+      t.stop();
+      Log::info() << "Done: calculated in " << t.duration().count() << "ms";
       std::cout << m_result << std::endl;
    }
 

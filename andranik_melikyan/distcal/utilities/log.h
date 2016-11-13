@@ -1,7 +1,9 @@
 #pragma once
 
-#include <fstream>
+#include <ostream>
+#include <sstream>
 #include <string>
+
 #include <memory>
 
 namespace distcal
@@ -18,12 +20,52 @@ namespace distcal
          DEBUG   = 3
 		};
 
+   private:
+      class Buffer
+      {
+      public:
+         Buffer() 
+         { }
+         
+         Buffer( std::shared_ptr<std::ostream> stream, std::string prefix)
+            :m_stream(stream), m_prefix(prefix)
+         { }
+
+         Buffer( const Buffer& rhs )
+            :m_stream(rhs.m_stream), m_prefix(rhs.m_prefix)
+         { }
+
+         ~Buffer()
+         {
+            std::string log = m_buf.str();
+            if(m_stream && !log.empty())
+               *m_stream << m_prefix << log << std::endl;
+         }
+
+         template <typename Item>
+         Buffer& operator << (const Item& item) { return push(item); }
+         Buffer& operator << (std::ostream& (*manip)(std::ostream&)) { return push(manip); }
+
+      private:
+         template <typename Item>
+         Buffer& push(const Item& item)
+         {
+            if (m_stream)
+               m_buf << item;
+            return *this;
+         }
+
+         std::shared_ptr<std::ostream> m_stream;
+
+         std::string m_prefix;
+         std::ostringstream m_buf;
+      };
+
 	private:
 		Log()
-			:m_ignore(false)
 		{ }
 
-	public:
+   public:
 		static Log& instance() 
       {
          if (!m_instance)
@@ -31,33 +73,21 @@ namespace distcal
          return *m_instance;
       }
 
+      void init(Level level, const std::ostream& out);
 		void init(Level level, const std::string& filename);
-		
-		static const Log& log();
-		static const Log& fatal();
-		static const Log& error();
-		static const Log& warning();
-		static const Log& info();
-		static const Log& debug();
 
-		template <typename Item>
-		const Log& operator << (const Item& item) const { return push(item); }
-		const Log& operator << (std::ostream& (*manip)(std::ostream&)) const { return push(manip); }
+
+      static Log::Buffer log();
+
+      static Log::Buffer fatal();
+      static Log::Buffer error();
+      static Log::Buffer warning();
+      static Log::Buffer info();
+      static Log::Buffer debug();
 		
 	private:
-      template <typename Item>
-      const Log& push(const Item& item) const
-      {
-         if (!m_ignore)
-            *m_stream << item;
-         return *this;
-      }
-
-		void setIgnore( bool flag ) { m_ignore = flag; }
-
-		bool m_ignore;
 		Level m_level;
-		std::auto_ptr<std::ofstream> m_stream;
+		std::shared_ptr<std::ostream> m_stream;
 
 		static Log* m_instance;
 	};
