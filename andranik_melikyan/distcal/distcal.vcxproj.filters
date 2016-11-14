@@ -16,7 +16,10 @@
     <ClCompile Include="utilities\log.cpp">
       <Filter>utilities</Filter>
     </ClCompile>
-    <ClCompile Include="utilities\time.cpp">
+    <ClCompile Include="utilities\timestamp.cpp">
+      <Filter>utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="utilities\performance.cpp">
       <Filter>utilities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -42,7 +45,10 @@
       <Filter>calculation</Filter>
     </ClInclude>
     <ClInclude Include="dataset.h" />
-    <ClInclude Include="utilities\time.h">
+    <ClInclude Include="utilities\timestamp.h">
+      <Filter>utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities\performance.h">
       <Filter>utilities</Filter>
     </ClInclude>
   </ItemGroup>

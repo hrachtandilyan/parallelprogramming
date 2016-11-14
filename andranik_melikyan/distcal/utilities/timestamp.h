@@ -32,19 +32,4 @@ namespace distcal
 
    std::ostream& operator <<( std::ostream& out, const Timestamp& rhs );
 
-   class Timer
-   {
-   public:
-      Timer()
-      { }
-
-      void start();
-      void stop();
-      std::chrono::milliseconds duration();
-
-   private:
-      std::chrono::duration<float> m_duration;
-      std::chrono::high_resolution_clock::time_point m_start;
-   };
-
 }; //namespace distcal

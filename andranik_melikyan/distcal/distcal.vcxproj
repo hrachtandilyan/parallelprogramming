@@ -147,7 +147,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="process.cpp" />
     <ClCompile Include="utilities\log.cpp" />
-    <ClCompile Include="utilities\time.cpp" />
+    <ClCompile Include="utilities\performance.cpp" />
+    <ClCompile Include="utilities\timestamp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="calculation\engine.h" />
@@ -159,7 +160,8 @@
     <ClInclude Include="process.h" />
     <ClInclude Include="utilities\exception.h" />
     <ClInclude Include="utilities\log.h" />
-    <ClInclude Include="utilities\time.h" />
+    <ClInclude Include="utilities\performance.h" />
+    <ClInclude Include="utilities\timestamp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

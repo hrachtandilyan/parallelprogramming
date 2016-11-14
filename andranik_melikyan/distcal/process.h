@@ -1,8 +1,7 @@
 #pragma once
 
-#include <iomanip>
-
 #include "config.h"
+
 #include "calculation/engine.h"
 #include "dataset.h"
 
@@ -25,4 +24,3 @@ namespace distcal
    };
 
 }; //namespace distcal
-

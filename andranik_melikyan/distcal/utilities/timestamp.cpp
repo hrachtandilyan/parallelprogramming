@@ -1,4 +1,4 @@
-#include "time.h"
+#include "timestamp.h"
 
 #include <ostream>
 #include <sstream>
@@ -28,6 +28,7 @@ namespace distcal
    std::string Timestamp::getSignature() const
    {
       std::ostringstream line;
+      line << std::setfill('0');
       line << std::setw( 4 ) << year() << std::setw( 2 ) << mon() << std::setw( 2 ) << mday() << '_' <<
               std::setw( 2 ) << hour() << std::setw( 2 ) << min() << std::setw( 2 ) << sec();
       return line.str();
@@ -35,23 +36,11 @@ namespace distcal
 
    std::ostream& operator <<( std::ostream& out, const Timestamp& rhs )
    {
+      const char prevFill = out.fill();
+      out << std::setfill('0');
       out << std::setw( 2 ) << rhs.hour() << ':' << std::setw( 2 ) << rhs.min() << ':' << std::setw( 2 ) << rhs.sec() << '.' << std::setw( 2 ) << rhs.mlsec();
+      out << std::setfill(prevFill);
       return out;
-   }
-
-   void Timer::start()
-   {
-      m_start = std::chrono::high_resolution_clock::now();
-   }
-
-   void Timer::stop()
-   {
-      m_duration = std::chrono::high_resolution_clock::now() - m_start;
-   }
-
-   std::chrono::milliseconds Timer::duration()
-   {
-      return std::chrono::duration_cast<std::chrono::milliseconds>(m_duration);
    }
 
 }; //namespace distcal
