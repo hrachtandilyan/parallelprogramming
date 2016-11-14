@@ -1,5 +1,3 @@
-#pragma once
-
 #include "config.h"
 
 namespace distcal
@@ -7,7 +5,7 @@ namespace distcal
    namespace config
    {
       const Log::Level  default_verbosity = Log::Level::INFO;
-      const std::string default_log_filename = "logfile.txt";
+      const std::string default_log_filename = "";
       const std::string default_query_filename = "";
       const std::string default_dataset_filename = "";
       const size_t      default_query_size = 10;

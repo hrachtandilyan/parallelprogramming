@@ -1,6 +1,6 @@
 #include "process.h"
 #include "utilities/log.h"
-#include "utilities/timer.h"
+#include "utilities/time.h"
 
 #include <iostream>
 #include <fstream>
@@ -25,14 +25,18 @@ namespace distcal
    void Process::run()
    {
       Log::info() << "I work";
+
       m_dataset.fetch( m_config.dataset_filename );
       m_queries.fetch( m_config.query_filename );
-
       Log::info() << "Data fetched, calculating";
+
+      Log::debug() << "Invisible";
+
       Timer t;
       t.start();
       m_engine.start();
       t.stop();
+
       Log::info() << "Done: calculated in " << t.duration().count() << "ms";
       std::cout << m_result << std::endl;
    }
