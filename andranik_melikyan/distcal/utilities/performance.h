@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <queue>
 
 #include <chrono>
 
@@ -51,6 +52,7 @@ namespace distcal
    private:
       Timer m_global;
       std::vector<Timer> m_iterations;
+      std::queue<int> m_free;
 
       Result m_result;
    };

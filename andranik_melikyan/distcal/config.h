@@ -9,9 +9,11 @@ namespace distcal
 {
    namespace config
    {
+      /// @brief Holds all the configurable values 
       struct Config
       {
       public:
+         /// @brief Parses command line parameters and sets appropriate values
          Config(int argc, char* argv[]);
 
          Log::Level verbosity;

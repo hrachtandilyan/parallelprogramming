@@ -13,10 +13,10 @@ namespace distcal
       class Engine
       {
       public:
-         Engine( const DataSet& dataset, const DataSet& queries, DataSet& result, 
+         Engine( const DataSet& data, const DataSet& queries, DataSet& result, 
                  GenericEngine::EngineType eType = GenericEngine::EngineType::QUADRATIC_TYPE, 
                  Metric::MetricType        mType = Metric::MetricType::L2_TYPE )
-            :m_dataset( dataset ), m_queries( queries ), m_result( result ), m_engineImpl(NULL)
+            :m_data( data ), m_queries( queries ), m_result( result ), m_engineImpl(NULL)
          {             
             setEngine( eType );
             setMetric( mType );
@@ -33,7 +33,7 @@ namespace distcal
             {
             case GenericEngine::EngineType::QUADRATIC_TYPE:
             default:
-               m_engineImpl = new QuadraticEngine( m_dataset, m_queries, m_result );
+               m_engineImpl = new QuadraticEngine( m_data, m_queries, m_result );
             }
          }
 
@@ -59,12 +59,12 @@ namespace distcal
          }
 
       private:
-         GenericEngine* m_engineImpl;
-         DistanceMetric m_metricImpl;
-
-         const DataSet& m_dataset;
+         const DataSet& m_data;
          const DataSet& m_queries;
          DataSet& m_result;
+
+         GenericEngine* m_engineImpl;
+         DistanceMetric m_metricImpl;
       };
 
 

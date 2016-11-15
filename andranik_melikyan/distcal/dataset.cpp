@@ -25,11 +25,11 @@ namespace distcal
       }
    }
 
-   void DataSet::randomize( double randMin, double randMax )
+   void DataSet::randomize( double minimum, double maximum )
    {
       std::random_device rd;
       std::mt19937 rng( rd() );
-      std::uniform_real_distribution<double> dist( randMin, randMax );
+      std::uniform_real_distribution<double> dist( minimum, maximum );
 
       for( unsigned int i = 0; i < m_count; ++i )
       {

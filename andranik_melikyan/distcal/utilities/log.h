@@ -44,7 +44,7 @@ namespace distcal
             std::string log = m_buf.str();
             if( m_stream && !log.empty() )
             {
-               *m_stream << m_now << " " << m_prefix << log << std::endl;
+               *m_stream << m_now << ": " << m_prefix << log << std::endl;
             }
          }
 
@@ -96,6 +96,8 @@ namespace distcal
       static Log::Buffer debug();
 		
 	private:
+      static bool disabled( Level level ) { return level > m_instance->m_level; }
+
 		Level m_level;
 		std::shared_ptr<std::ostream> m_stream;
 
