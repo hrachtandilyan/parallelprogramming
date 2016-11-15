@@ -3,42 +3,31 @@
 #include "utilities/performance.h"
 
 #include <iostream>
-#include <fstream>
 
 namespace distcal
 {
    Process::Process( int argc, char* argv[] )
       :m_config( argc, argv ), 
-       m_dataset( m_config.dataset_size, m_config.vector_dimension ),
-       m_queries( m_config.query_size, m_config.vector_dimension ), 
-       m_result( m_config.dataset_size, m_config.query_size ),
+       m_dataset( m_config.data_count, m_config.vector_dimension ),
+       m_queries( m_config.query_count, m_config.vector_dimension ),
+       m_result( m_config.data_count, m_config.query_count ),
        m_engine( m_dataset, m_queries, m_result )
    {
-      /*
-      m_config.query_filename = "queries.txt";         // temporary for testing
-      m_config.dataset_filename = "dataset.txt";       //
-      */
-
-	   Log::instance().init(m_config.verbosity, m_config.log_filename);
+	   Log::instance().init(m_config.verbosity, std::cout);
+      Log::debug() << m_config;
    };
 
    void Process::run()
    {
-      Log::info() << "I work";
-
-      m_dataset.fetch( m_config.dataset_filename );
+      Log::info() << "fetching data";
+      m_dataset.fetch( m_config.data_filename );
       m_queries.fetch( m_config.query_filename );
-      Log::info() << "Data fetched, calculating";
 
-      Log::debug() << "Invisible";
+      Log::info() << "data fetched, calculating";
+      Performance::Result perf = m_engine.calculate();
 
-      Timer t;
-      t.start();
-      m_engine.start();
-      t.stop();
-
-      Log::info() << "Done: calculated in " << t.duration().count() << "ms";
-      std::cout << m_result << std::endl;
+      Log::info() << "done: [" << perf.m_count << "] iterations in [" << perf.m_total / 1000 << "ms], averaged at [" << perf.m_average / 1000 << "ms]";
+      //Log::debug() << m_result;
    }
 
 }; //namespace distcal

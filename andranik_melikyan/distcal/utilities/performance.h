@@ -14,7 +14,8 @@ namespace distcal
 
       void start();
       void stop();
-      std::chrono::milliseconds duration();
+
+      std::chrono::microseconds duration();
 
    private:
       std::chrono::duration<double> m_duration;
@@ -26,26 +27,31 @@ namespace distcal
    public:
       struct Result
       {
-         std::chrono::milliseconds m_total;
-         std::chrono::milliseconds m_average;
+         Result()
+            :m_total(0), m_average(0.), m_count(0)
+         { }
+
+         double m_total;
+         double m_average;
+         long long m_count;
       };
 
    public:
-      Performance();
+      Performance()
+      { }
 
       void start();
       void stop();
 
-      int startSubAction();
-      void stopSubAction(int index);
+      int registerIteration();
+      void endIteration( int id );
 
       Result getResult() { return m_result; }
 
    private:
       Timer m_global;
-      std::vector<Timer> m_actions;
+      std::vector<Timer> m_iterations;
 
-      int m_counter;
       Result m_result;
    };
 

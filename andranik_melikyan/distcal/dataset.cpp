@@ -16,7 +16,7 @@ namespace distcal
       }
 
 	  std::ifstream fin(filename.c_str());
-      for( unsigned int i = 0; i < m_size; ++i )
+      for( unsigned int i = 0; i < m_count; ++i )
       {
          for( unsigned int j = 0; j < m_dimension; ++j )
          {
@@ -31,7 +31,7 @@ namespace distcal
       std::mt19937 rng( rd() );
       std::uniform_real_distribution<double> dist( randMin, randMax );
 
-      for( unsigned int i = 0; i < m_size; ++i )
+      for( unsigned int i = 0; i < m_count; ++i )
       {
          for( unsigned int j = 0; j < m_dimension; ++j )
          {
@@ -42,11 +42,11 @@ namespace distcal
 
    std::ostream& operator <<( std::ostream& out, const DataSet& rhs )
    {
-      for( unsigned int i = 0; i < rhs.size(); ++i )
+      for( unsigned int i = 0; i < rhs.count(); ++i )
       {
          for( unsigned int j = 0; j < rhs.dimension(); ++j )
             out << std::setw( 7 ) << rhs[i][j] << ' ';
-         if( i != rhs.size() - 1 )
+         if( i != rhs.count() - 1 )
             out << std::endl;
       }
       return out;

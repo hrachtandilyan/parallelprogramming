@@ -2,6 +2,8 @@
 
 #include "metric.h"
 
+#include "../utilities/performance.h"
+
 namespace distcal
 {
    namespace calculation
@@ -18,12 +20,22 @@ namespace distcal
          GenericEngine( const DataSet& dataset, const DataSet& queries, DataSet& result )
             :m_dataset( dataset ), m_queries( queries ), m_result( result ) { };
 
-         void start( DistanceMetric distance ) { engineImpl( distance ); }
+         Performance::Result calculate( DistanceMetric distance ) 
+         { 
+            m_performance.start();
+
+            engineImpl( distance );
+
+            m_performance.stop();
+            return m_performance.getResult();
+         }
 
       private:
          virtual void engineImpl( DistanceMetric distance ) = 0;
 
       protected:
+         Performance m_performance;
+
          const DataSet& m_dataset;
          const DataSet& m_queries;
          DataSet& m_result;

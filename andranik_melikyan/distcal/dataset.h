@@ -10,13 +10,13 @@ namespace distcal
    class DataSet
    {
    public:
-      DataSet( size_t size, size_t dimension )
-         :m_size( size ), m_dimension( dimension ), m_dataset( size, DataVector( dimension ) )
+      DataSet( size_t count, size_t dimension )
+         :m_count( count ), m_dimension( dimension ), m_dataset( count, DataVector( dimension ) )
       { }
 
       void fetch( const std::string& filename = "" );
 
-      size_t size() const { return m_size; }
+      size_t count() const { return m_count; }
       size_t dimension() const { return m_dimension; }
 
       DataVector& operator[]( size_t index ) { return m_dataset[index]; }
@@ -24,7 +24,7 @@ namespace distcal
  
    private:
       std::vector<DataVector> m_dataset;
-      size_t m_size;
+      size_t m_count;
       size_t m_dimension;   
 
       void randomize( double randMin = FLT_MIN, double randMax = FLT_MAX );      

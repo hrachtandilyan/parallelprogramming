@@ -17,11 +17,13 @@ namespace distcal
       private:
          virtual void engineImpl( DistanceMetric distance )
          {
-            for( unsigned int i = 0; i < m_dataset.size(); ++i )
+            for( unsigned int i = 0; i < m_dataset.count(); ++i )
             {
-               for( unsigned int j = 0; j < m_queries.size(); ++j )
+               for( unsigned int j = 0; j < m_queries.count(); ++j )
                {
+                  const int id = m_performance.registerIteration();
                   m_result[i][j] = distance(m_dataset[i], m_queries[j]);
+                  m_performance.endIteration( id );
                }
             }
          }		 

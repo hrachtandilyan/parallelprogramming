@@ -1,10 +1,7 @@
 #include "timestamp.h"
 
-#include <ostream>
 #include <sstream>
 #include <iomanip>
-
-#include <chrono>
 
 namespace distcal
 {
@@ -38,7 +35,7 @@ namespace distcal
    {
       const char prevFill = out.fill();
       out << std::setfill('0');
-      out << std::setw( 2 ) << rhs.hour() << ':' << std::setw( 2 ) << rhs.min() << ':' << std::setw( 2 ) << rhs.sec() << '.' << std::setw( 2 ) << rhs.mlsec();
+      out << std::setw( 2 ) << rhs.hour() << ':' << std::setw( 2 ) << rhs.min() << ':' << std::setw( 2 ) << rhs.sec() << '.' << std::setw( 3 ) << rhs.mlsec();
       out << std::setfill(prevFill);
       return out;
    }

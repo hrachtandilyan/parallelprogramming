@@ -4,6 +4,7 @@
 #include "quadratic.h"
 
 #include "../dataset.h"
+#include "../utilities/performance.h"
 
 namespace distcal
 {
@@ -52,9 +53,9 @@ namespace distcal
             }
          }
 
-         void start()
+         Performance::Result calculate()
          {
-            m_engineImpl->start( m_metricImpl );
+            return m_engineImpl->calculate( m_metricImpl );
          }
 
       private:
