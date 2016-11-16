@@ -56,7 +56,7 @@ namespace distcal
          template <typename Item>
          Buffer& push(const Item& item)
          {
-            if (m_stream)
+            if( m_stream != nullptr )
                m_buf << item;
             return *this;
          }
@@ -78,7 +78,7 @@ namespace distcal
    public:
 		static Log& instance() 
       {
-         if (!m_instance)
+         if( m_instance == nullptr )
             m_instance = new Log();
          return *m_instance;
       }

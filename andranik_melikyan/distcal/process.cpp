@@ -13,7 +13,6 @@ namespace distcal
        m_result( m_config.data_count, m_config.query_count ),
        m_engine( m_data, m_queries, m_result )
    {
-	   Log::instance().init(m_config.verbosity, std::cout);
       Log::debug() << m_config;
    };
 

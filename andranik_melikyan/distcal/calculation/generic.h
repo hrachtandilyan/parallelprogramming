@@ -18,7 +18,8 @@ namespace distcal
 
       public:
          GenericEngine( const DataSet& data, const DataSet& queries, DataSet& result )
-            :m_data( data ), m_queries( queries ), m_result( result ) { };
+            :m_data( data ), m_queries( queries ), m_result( result ) 
+         { };
 
          Performance::Result calculate( DistanceMetric distance ) 
          { 

@@ -35,8 +35,8 @@ namespace distcal
       int id;
       if( m_free.empty() )
       {
+         id = m_iterations.size();
          m_iterations.push_back( Timer() );
-         id = m_iterations.size() - 1;
       }
       else
       {

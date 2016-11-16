@@ -146,6 +146,7 @@
     <ClCompile Include="dataset.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="process.cpp" />
+    <ClCompile Include="utilities\csv.cpp" />
     <ClCompile Include="utilities\log.cpp" />
     <ClCompile Include="utilities\performance.cpp" />
     <ClCompile Include="utilities\timestamp.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="config.h" />
     <ClInclude Include="dataset.h" />
     <ClInclude Include="process.h" />
+    <ClInclude Include="utilities\csv.h" />
     <ClInclude Include="utilities\exception.h" />
     <ClInclude Include="utilities\log.h" />
     <ClInclude Include="utilities\performance.h" />

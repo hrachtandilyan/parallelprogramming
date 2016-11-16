@@ -11,7 +11,7 @@ namespace distcal
    class Timestamp
    {
    public:
-      Timestamp( );
+      Timestamp();
       Timestamp( std::chrono::time_point<std::chrono::system_clock> ms );
 
       int mlsec() const { return m_mlsec; }

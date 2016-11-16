@@ -14,15 +14,17 @@ namespace distcal
       {
       public:
          /// @brief Parses command line parameters and sets appropriate values
+         /// 
+         /// Also initalizes logging
          Config(int argc, char* argv[]);
 
-         Log::Level verbosity;
+         Log::Level  verbosity;
          std::string log_filename;
          std::string query_filename;
          std::string data_filename;
-         size_t query_count;
-         size_t data_count;
-         size_t vector_dimension;
+         size_t      query_count;
+         size_t      data_count;
+         size_t      vector_dimension;
       };
 
       std::ostream& operator <<( std::ostream& out, const Config& rhs );

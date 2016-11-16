@@ -11,7 +11,7 @@ namespace distcal
    };
 
    Timestamp::Timestamp()
-      :m_mlsec( 0 ), m_rest { 0 }
+      :m_mlsec(0), m_rest {}
    { }
 
    Timestamp::Timestamp( std::chrono::time_point<std::chrono::system_clock> ms )
@@ -26,8 +26,8 @@ namespace distcal
    {
       std::ostringstream line;
       line << std::setfill('0');
-      line << std::setw( 4 ) << year() << std::setw( 2 ) << mon() << std::setw( 2 ) << mday() << '_' <<
-              std::setw( 2 ) << hour() << std::setw( 2 ) << min() << std::setw( 2 ) << sec();
+      line << std::setw(4) << year() << std::setw(2) << mon() << std::setw(2) << mday() << '_' <<
+              std::setw(2) << hour() << std::setw(2) << min() << std::setw(2) << sec();
       return line.str();
    }
 
@@ -35,7 +35,7 @@ namespace distcal
    {
       const char prevFill = out.fill();
       out << std::setfill('0');
-      out << std::setw( 2 ) << rhs.hour() << ':' << std::setw( 2 ) << rhs.min() << ':' << std::setw( 2 ) << rhs.sec() << '.' << std::setw( 3 ) << rhs.mlsec();
+      out << std::setw(2) << rhs.hour() << ':' << std::setw(2) << rhs.min() << ':' << std::setw(2) << rhs.sec() << '.' << std::setw(3) << rhs.mlsec();
       out << std::setfill(prevFill);
       return out;
    }

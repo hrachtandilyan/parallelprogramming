@@ -5,6 +5,8 @@
 
 #include <random>
 
+#include "utilities/csv.h"
+
 namespace distcal
 {
    void DataSet::fetch( const std::string& filename )
@@ -15,14 +17,8 @@ namespace distcal
          return;
       }
 
-	  std::ifstream fin(filename.c_str());
-      for( unsigned int i = 0; i < m_count; ++i )
-      {
-         for( unsigned int j = 0; j < m_dimension; ++j )
-         {
-            fin >> m_dataset[i][j];
-         }
-      }
+      CSV datafile(filename);
+      datafile.fill(*this);
    }
 
    void DataSet::randomize( double minimum, double maximum )

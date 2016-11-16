@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cmath>
-
 #include "generic.h"
 
 namespace distcal
@@ -12,7 +10,8 @@ namespace distcal
       {
       public:
          QuadraticEngine( const DataSet& data, const DataSet& queries, DataSet& result )
-            :GenericEngine( data, queries, result ) { };
+            :GenericEngine( data, queries, result ) 
+         { };
 
       private:
          virtual void engineImpl( DistanceMetric distance )

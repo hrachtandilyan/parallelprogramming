@@ -16,7 +16,7 @@ namespace distcal
          Engine( const DataSet& data, const DataSet& queries, DataSet& result, 
                  GenericEngine::EngineType eType = GenericEngine::EngineType::QUADRATIC_TYPE, 
                  Metric::MetricType        mType = Metric::MetricType::L2_TYPE )
-            :m_data( data ), m_queries( queries ), m_result( result ), m_engineImpl(NULL)
+            :m_data( data ), m_queries( queries ), m_result( result ), m_engineImpl(nullptr)
          {             
             setEngine( eType );
             setMetric( mType );
@@ -24,7 +24,7 @@ namespace distcal
 
          void setEngine( GenericEngine::EngineType engine )
          {
-            if( m_engineImpl != NULL )
+            if( m_engineImpl != nullptr )
             {
                delete m_engineImpl;
             }

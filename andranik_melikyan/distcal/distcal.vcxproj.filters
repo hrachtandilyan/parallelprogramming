@@ -22,6 +22,9 @@
     <ClCompile Include="utilities\performance.cpp">
       <Filter>utilities</Filter>
     </ClCompile>
+    <ClCompile Include="utilities\csv.cpp">
+      <Filter>utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="process.h" />
@@ -49,6 +52,9 @@
       <Filter>utilities</Filter>
     </ClInclude>
     <ClInclude Include="utilities\performance.h">
+      <Filter>utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities\csv.h">
       <Filter>utilities</Filter>
     </ClInclude>
   </ItemGroup>
