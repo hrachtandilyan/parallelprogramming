@@ -20,8 +20,8 @@ namespace distcal
    private:
       config::Config m_config;      ///< Configuration
 
-      DataSet m_data;               ///< Initial data
-      DataSet m_queries;            ///< Initial queries
+      DataSet m_data;               ///< Initial data dataset
+      DataSet m_queries;            ///< Queries dataset
       DataSet m_result;             ///< Resulting m_data and m_result distances matrix
 
       calculation::Engine m_engine; ///< Contains actual calculation engine and metrics

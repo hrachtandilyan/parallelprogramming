@@ -7,7 +7,7 @@ namespace distcal
 {
    typedef std::vector<double> DataVector;
 
-   /// @brief Class for holding sets of vectors
+   /// @brief Holds sets of vectors
    ///
    /// The DataSets can be fetched from a file, otherwise they will be randomly generated
    class DataSet

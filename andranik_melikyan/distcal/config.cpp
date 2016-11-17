@@ -12,23 +12,23 @@ namespace distcal
    {
       namespace
       {
-         bool fileExists(const std::string& file)
+         bool file_exists(const std::string& file)
          {
             std::ifstream test(file);
             return test.good();
          }
 
-         std::string generateLogFilename()
+         std::string generate_log_filename()
          {
             std::string name;
-            std::string sign = Timestamp(std::chrono::system_clock::now()).getSignature();
+            std::string sign = Timestamp(std::chrono::system_clock::now()).getDatetime();
             char suffix = '0';
             do
             {
                name = "Log\\log_" + sign + ".txt";
                sign = sign + "_" + (++suffix);     // correct, unless the program is launched more than 10 times in one second, which is quite hard to do
             }
-            while( fileExists(name) );
+            while( file_exists(name) );
             return name;
          }
          
@@ -46,7 +46,8 @@ namespace distcal
          const size_t      default_query_count      = 1024;
          const size_t      default_data_count       = 1024;
          const size_t      default_vector_dimension = 512;
-      }
+
+      }; //namespace
 
       Config::Config(int argc, char* argv[]):
          verbosity        ( getParam<Log::Level>  ("v", default_verbosity) ),
@@ -58,7 +59,7 @@ namespace distcal
          vector_dimension ( getParam<size_t>      ("s", default_vector_dimension) )
       {
          if( log_filename.empty() )
-            log_filename = generateLogFilename();
+            log_filename = generate_log_filename();
          Log::instance().init(verbosity, std::cout);
       }
 

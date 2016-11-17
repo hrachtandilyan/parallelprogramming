@@ -6,6 +6,7 @@ namespace distcal
 {
    namespace calculation
    {
+      /// @brief Quadratic engine, has a complexity of O(data * queries * dim)
       class QuadraticEngine : public GenericEngine
       {
       public:

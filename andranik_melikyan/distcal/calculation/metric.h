@@ -9,10 +9,11 @@ namespace distcal
 {
    typedef std::function<double( const DataVector&, const DataVector& )> DistanceMetric;
 
+   /// @brief Class that holds all the metrics
    class Metric
    {
    public:
-      enum MetricType
+      enum MetricType      ///< Enumerated types of metrics
       {
          HAMMING_TYPE = 0,
          L1_TYPE,

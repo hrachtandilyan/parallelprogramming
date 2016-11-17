@@ -1,56 +1,31 @@
 #pragma once
 
-#include <iostream>
 #include <fstream>
-#include <sstream>
 #include <string>
-#include <regex>
 
 #include "../dataset.h"
 
 namespace distcal
 {
+   /// @brief Helper class for reading and validating CSV files.
    class CSV
    {
    public:
-      CSV(const std::string& filename)
-      {
-         m_file.open(filename);
-         if( !m_file.good() )
-         {
-            throw std::exception("Invalid filename");
-         }
-      }
+      /// @brief Constructs ifstream and opens it
+      /// @param filename, target csv file
+      /// @throw CsvException if file failed to opened or doesn't exist
+      CSV(const std::string& filename);
 
-      void fill( DataSet& data )       // Check for exact match will be here
-      {
-         const std::regex csvLine("\\d(\\s*,\\s*\\d)");
-         std::istringstream lineStream;
-        
-         for( int i = 0; i < data.count(); ++i )
-         {
-            std::string line;
-            std::getline(m_file, line);
-            if (!std::regex_match(line, csvLine))
-            {
-               throw std::exception("Invalid format");
-            }
-
-            lineStream.str(line + ',');
-            for( int j = 0; j < data.dimension(); ++j )
-            {
-               char dummy;
-               lineStream >> data[i][j] >> dummy;
-            }
-         }
-         if (!m_file.eof())
-         {
-            throw std::exception("Invalid format");
-         }
-
-      }
+      /// @brief Fills referenced DataSet with the data from file
+      /// @param data, reference to DataSet which will be filled with the data
+      /// @throw CsvException, if file doesn't contain exactly the expected amount of data
+      ///
+      /// Harsh validation here, extra leading and tailing newlines are considered a format violation.
+      void fill(DataSet& data);
       
    private:
+      const std::string m_filename;
       std::ifstream m_file;
    };
+
 }; //namespace distcal

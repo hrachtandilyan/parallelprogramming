@@ -10,9 +10,13 @@ namespace distcal
 {
    namespace calculation
    {
+      /// @brief Factory-like class for dynamicly changing the calculation engine and metrics
       class Engine
       {
       public:
+         /// @brief Constructs class, stores references to the data that will have to be processed and sets Engine and Metric
+         /// @param eType, The type of engine, default is quadratic
+         /// @param mType, The type of metrics, default is L2
          Engine( const DataSet& data, const DataSet& queries, DataSet& result, 
                  GenericEngine::EngineType eType = GenericEngine::EngineType::QUADRATIC_TYPE, 
                  Metric::MetricType        mType = Metric::MetricType::L2_TYPE )
@@ -22,6 +26,8 @@ namespace distcal
             setMetric( mType );
          }
 
+         /// @brief Sets the engine to the given type, deletes the old one
+         /// @parm engine, The type of new engine
          void setEngine( GenericEngine::EngineType engine )
          {
             if( m_engineImpl != nullptr )
@@ -37,6 +43,8 @@ namespace distcal
             }
          }
 
+         /// @brief Sets the metrics to the given type
+         /// @parm metric, The type of new metric
          void setMetric( Metric::MetricType metric )
          {
             switch( metric )
@@ -53,18 +61,20 @@ namespace distcal
             }
          }
 
+         /// @brief Calls calculate() method of the underlying engine, with the underlying metrics
+         /// @return The performance of the underlying engine during the calculations
          Performance::Result calculate()
          {
             return m_engineImpl->calculate( m_metricImpl );
          }
 
       private:
-         const DataSet& m_data;
+         const DataSet& m_data;     
          const DataSet& m_queries;
          DataSet& m_result;
 
-         GenericEngine* m_engineImpl;
-         DistanceMetric m_metricImpl;
+         GenericEngine* m_engineImpl; ///< Pointer to the current engine
+         DistanceMetric m_metricImpl; ///< Metric function
       };
 
 

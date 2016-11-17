@@ -6,21 +6,21 @@ namespace distcal
 {
 	Log* Log::m_instance;
 
-   void Log::init(Level level, const std::ostream& out)
+   void Log::init(Level verbosity, const std::ostream& out)
    {
-      m_level = level;
+      m_verbosity = verbosity;
       m_stream = std::auto_ptr<std::ostream>(new std::ostream(out.rdbuf()));
    }
 
-	void Log::init(Level level, std::string filename)
+	void Log::init(Level verbosity, std::string filename)
 	{
-		m_level = level;
+      m_verbosity = verbosity;
       m_stream = std::auto_ptr<std::ostream>(new std::ofstream(filename));
 	}
 
    Log::Buffer Log::log()
    {
-      return Buffer(Log::instance().m_stream, "");
+      return Buffer(Log::instance().m_stream);
    }
 
    Log::Buffer Log::fatal()
