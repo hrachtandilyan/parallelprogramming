@@ -43,8 +43,8 @@ namespace distcal
          const std::string default_log_filename     = "";
          const std::string default_query_filename   = "";
          const std::string default_data_filename    = "";
-         const size_t      default_query_count      = 5;
-         const size_t      default_data_count       = 5;
+         const size_t      default_query_count      = 1024;
+         const size_t      default_data_count       = 1024;
          const size_t      default_vector_dimension = 512;
       }
 
@@ -55,7 +55,7 @@ namespace distcal
          data_filename    ( getParam<std::string> ("d", default_data_filename) ),
          query_count      ( getParam<size_t>      ("Q", default_query_count) ),
          data_count       ( getParam<size_t>      ("D", default_data_count) ),
-         vector_dimension ( getParam<size_t>("s", default_vector_dimension) )
+         vector_dimension ( getParam<size_t>      ("s", default_vector_dimension) )
       {
          if( log_filename.empty() )
             log_filename = generateLogFilename();
@@ -64,7 +64,7 @@ namespace distcal
 
       std::ostream& operator <<( std::ostream& out, const Config& rhs )
       {
-         out << "Configuration\n";
+         out << "configuration\n";
          out << "\tVerbosity        = <" << rhs.verbosity        << ">\n";
          out << "\tLog Filename     = <" << rhs.log_filename     << ">\n"; 
          out << "\tQuery Filename   = <" << rhs.query_filename   << ">\n"; 
