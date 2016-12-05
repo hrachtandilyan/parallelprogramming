@@ -143,8 +143,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="config.cpp" />
+    <ClCompile Include="dataset.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="process.cpp" />
+    <ClCompile Include="utilities\csv.cpp" />
+    <ClCompile Include="utilities\log.cpp" />
+    <ClCompile Include="utilities\performance.cpp" />
+    <ClCompile Include="utilities\timestamp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="calculation\engine.h" />
@@ -152,12 +157,13 @@
     <ClInclude Include="calculation\metric.h" />
     <ClInclude Include="calculation\quadratic.h" />
     <ClInclude Include="config.h" />
+    <ClInclude Include="dataset.h" />
     <ClInclude Include="process.h" />
+    <ClInclude Include="utilities\csv.h" />
     <ClInclude Include="utilities\exception.h" />
     <ClInclude Include="utilities\log.h" />
-    <ClInclude Include="utilities\setfetcher.h" />
-    <ClInclude Include="utilities\timer.h" />
-    <ClInclude Include="utilities\types.h" />
+    <ClInclude Include="utilities\performance.h" />
+    <ClInclude Include="utilities\timestamp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

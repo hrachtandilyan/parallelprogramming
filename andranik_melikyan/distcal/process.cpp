@@ -1,34 +1,32 @@
 #include "process.h"
+#include "utilities/log.h"
+#include "utilities/performance.h"
 
 #include <iostream>
-#include <fstream>
-
-#include "utilities/setfetcher.h"
 
 namespace distcal
 {
    Process::Process( int argc, char* argv[] )
-      :m_config( argc, argv )
+      :m_config( argc, argv ), 
+       m_data( m_config.data_count, m_config.vector_dimension ),
+       m_queries( m_config.query_count, m_config.vector_dimension ),
+       m_result( m_config.data_count, m_config.query_count ),
+       m_engine( m_data, m_queries, m_result )
    {
-      /*
-      m_config.queryFilename = "queries.txt";         //temporary for testing
-      m_config.datasetFilename = "dataset.txt";
-      m_config.datasetCount = 3;
-      m_config.queryCount = 2;
-      m_config.vectorSize = 3;                        //
-      */
-      m_queries = utility::SetFetcher(m_config.queryFilename, m_config.queryCount, m_config.vectorSize).fetch();
-      m_dataset = utility::SetFetcher(m_config.datasetFilename, m_config.datasetCount, m_config.vectorSize).fetch();
-
-      m_result = types::DataSet( m_dataset.size(), types::DataVector( m_queries.size() ) );
+      Log::debug() << m_config;
    };
 
    void Process::run()
    {
-      m_engine.setEngineAndInit( calculation::EngineType::QUADRATIC_TYPE, Metric::MetricType::L2_TYPE, &m_dataset, &m_queries, &m_result );
-      m_engine.start();
+      Log::info() << "fetching data";
+      m_data.fetch( m_config.data_filename );
+      m_queries.fetch( m_config.query_filename );
 
-      utility::outputDataSet( std::cout, m_result );
+      Log::info() << "data fetched, calculating";
+      Performance::Result perf = m_engine.calculate();
+
+      Log::info() << "done: [" << perf.m_count << "] iterations in [" << perf.m_total / 1000 << "ms], averaged at [" << perf.m_average << "mcs]";
+      Log::debug() << m_result;
    }
 
 }; //namespace distcal

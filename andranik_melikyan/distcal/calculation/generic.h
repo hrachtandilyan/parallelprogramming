@@ -2,47 +2,51 @@
 
 #include "metric.h"
 
-#include "../utilities/types.h"
+#include "../utilities/performance.h"
 
 namespace distcal
 {
    namespace calculation
    {
+      /// @brief Abstract class that defines the interface of engines
       class GenericEngine
       {
       public:
-         GenericEngine( types::DataSet* const dataset, types::DataSet* const queries, types::DataSet* const result )
-            :m_datasetPtr( dataset ), m_queriesPtr( queries ), m_resultPtr( result ) { };
-
-         void setDistanceMetric( Metric::MetricType type ) 
-         { 
-            switch(type)
-            {
-            case Metric::MetricType::HAMMING_TYPE:
-               m_distFunc = &Metric::Hamming;
-               break;
-            case Metric::MetricType::L1_TYPE:
-               m_distFunc = &Metric::L1;
-               break;
-            case Metric::MetricType::L2_TYPE:
-            default:
-               m_distFunc = &Metric::L2;
-            }
-         }
-
-         void start()
+         enum EngineType      ///< Enumerated types of engines
          {
-            engineImpl();
+            QUADRATIC_TYPE = 0
+         };
+
+      public:
+         /// @brief Constructs engine and sets the references to the data it will be working with
+         GenericEngine( const DataSet& data, const DataSet& queries, DataSet& result )
+            :m_data( data ), m_queries( queries ), m_result( result ) 
+         { };
+
+         /// @brief Starts the global timer for performance calculation and initiates the actual engine logic
+         /// @param distance, The metric function that will be used during calculations
+         /// @return The performance of the engine during the calculation
+         Performance::Result calculate( DistanceMetric distance ) 
+         { 
+            m_performance.start();
+
+            engineImpl( distance );
+
+            m_performance.stop();
+            return m_performance.getResult();
          }
 
       private:
-         virtual void engineImpl() = 0;
+         /// @brief The actual engine logic
+         /// @param distance, The metric function that will be used during calculations
+         virtual void engineImpl( DistanceMetric distance ) = 0;
 
       protected:
-         types::DistanceMetricPtr m_distFunc;
-         types::DataSet* m_datasetPtr;
-         types::DataSet* m_queriesPtr;
-         types::DataSet* m_resultPtr;
+         Performance m_performance;    ///< Current performance of the engine
+
+         const DataSet& m_data;
+         const DataSet& m_queries;
+         DataSet& m_result;
       };
 
    }; //namespace calculation

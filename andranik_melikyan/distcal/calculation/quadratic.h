@@ -1,27 +1,29 @@
 #pragma once
 
-#include <cmath>
-
 #include "generic.h"
 
 namespace distcal
 {
    namespace calculation
    {
+      /// @brief Quadratic engine, has a complexity of O(data * queries * dim)
       class QuadraticEngine : public GenericEngine
       {
       public:
-         QuadraticEngine( types::DataSet* dataset, types::DataSet* queries, types::DataSet* result )
-            :GenericEngine( dataset, queries, result ) { };
+         QuadraticEngine( const DataSet& data, const DataSet& queries, DataSet& result )
+            :GenericEngine( data, queries, result ) 
+         { };
 
       private:
-         virtual void engineImpl()
+         virtual void engineImpl( DistanceMetric distance )
          {
-            for( int i = 0; i < m_datasetPtr->size(); ++i )
+            for( unsigned int i = 0; i < m_data.count(); ++i )
             {
-               for( int j = 0; j < m_queriesPtr->size(); ++j )
+               for( unsigned int j = 0; j < m_queries.count(); ++j )
                {
-                  (*m_resultPtr)[i][j] = m_distFunc(m_datasetPtr->at(i), m_queriesPtr->at(j));
+                  const int id = m_performance.registerIteration();
+                  m_result[i][j] = distance(m_data[i], m_queries[j]);
+                  m_performance.endIteration( id );
                }
             }
          }		 
