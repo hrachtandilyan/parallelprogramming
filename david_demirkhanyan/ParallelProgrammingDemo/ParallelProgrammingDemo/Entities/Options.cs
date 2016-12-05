@@ -18,6 +18,9 @@ namespace ParallelProgrammingDemo.Entities
 
         [Option('t', Required = true, HelpText = "Type of Calculations: sync, parallel, mpi, cuda")]
         public CalculatorType ComputationType { get; set; }
+
+        [Option('m', Required = true, HelpText = "Metric of calculation: Hamming, L2, L1")]
+        public MetricType MetricType { get; set; }
         
         public string GetUsage()
         {

@@ -1,0 +1,10 @@
+D:\Projects\parallelprogramming\david_demirkhanyan\ParallelProgrammingDemo\ParallelProgrammingDemo\bin\x64\Release\ParallelProgrammingDemo.exe.config
+D:\Projects\parallelprogramming\david_demirkhanyan\ParallelProgrammingDemo\ParallelProgrammingDemo\bin\x64\Release\ParallelProgrammingDemo.exe
+D:\Projects\parallelprogramming\david_demirkhanyan\ParallelProgrammingDemo\ParallelProgrammingDemo\bin\x64\Release\ParallelProgrammingDemo.pdb
+D:\Projects\parallelprogramming\david_demirkhanyan\ParallelProgrammingDemo\ParallelProgrammingDemo\bin\x64\Release\CommandLine.dll
+D:\Projects\parallelprogramming\david_demirkhanyan\ParallelProgrammingDemo\ParallelProgrammingDemo\bin\x64\Release\NLog.dll
+D:\Projects\parallelprogramming\david_demirkhanyan\ParallelProgrammingDemo\ParallelProgrammingDemo\bin\x64\Release\CommandLine.xml
+D:\Projects\parallelprogramming\david_demirkhanyan\ParallelProgrammingDemo\ParallelProgrammingDemo\bin\x64\Release\NLog.xml
+D:\Projects\parallelprogramming\david_demirkhanyan\ParallelProgrammingDemo\ParallelProgrammingDemo\obj\x64\Release\ParallelProgrammingDemo.exe
+D:\Projects\parallelprogramming\david_demirkhanyan\ParallelProgrammingDemo\ParallelProgrammingDemo\obj\x64\Release\ParallelProgrammingDemo.pdb
+D:\Projects\parallelprogramming\david_demirkhanyan\ParallelProgrammingDemo\ParallelProgrammingDemo\obj\x64\Release\ParallelProgrammingDemo.csprojResolveAssemblyReference.cache

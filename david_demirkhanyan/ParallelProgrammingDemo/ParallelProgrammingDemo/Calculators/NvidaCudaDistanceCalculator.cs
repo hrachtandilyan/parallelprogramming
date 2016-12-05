@@ -7,7 +7,7 @@ using ParallelProgrammingDemo.Entities;
 
 namespace ParallelProgrammingDemo.Calculators
 {
-    public class NvidaCudaDistanceCalculator : BaseCalculator, IDistanceCalculator
+    public class NvidaCudaDistanceCalculator :  IDistanceCalculator
     {
         /// <summary>
         /// Evaluates the distance between the according vectors and the overall running time

@@ -21,17 +21,26 @@ namespace ParallelProgrammingDemo.Helpers
         }
         #endregion
 
+        #region File Settings
         public string QuerySetFilePath { get; }
         public string DataSetFilePath { get; }
-       
         public bool DefaultFilesEnabled { get; }
+        #endregion
 
+        #region Program Settings
+        public bool TestMode { get; }
+        #endregion
+
+        #region Constructor 
         private ConfigurationHelper()
         {
             QuerySetFilePath = ConfigurationManager.AppSettings["DefaultQueryVectorsFilePath"];
             DataSetFilePath = ConfigurationManager.AppSettings["DefaultDatasetVectorsFilePath"];
 
             DefaultFilesEnabled = Convert.ToBoolean(ConfigurationManager.AppSettings["AreDefaultFilesEnabled"]);
+
+            TestMode = Convert.ToBoolean(ConfigurationManager.AppSettings["TestMode"]);
         }
+        #endregion 
     }
 }

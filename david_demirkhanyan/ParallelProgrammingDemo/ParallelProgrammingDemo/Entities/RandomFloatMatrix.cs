@@ -20,9 +20,9 @@ namespace ParallelProgrammingDemo.Entities
         {
             Random rand = new Random();
             
-            for(int i=0; i<height; i++)
+            for(int i=0; i<Height; i++)
             {
-                for(int j=0; j<width; j++)
+                for(int j=0; j<Width; j++)
                 {
                     matrixValues[i][j] = this.NextFloat(rand);
                 }
@@ -36,7 +36,7 @@ namespace ParallelProgrammingDemo.Entities
         /// <returns></returns>
         protected float NextFloat(Random rand)
         {
-           return (float)(float.MaxValue * 2.0 * (rand.NextDouble() - 0.5));
+           return (float)(100 * 2.0 * (rand.NextDouble() - 0.5));
         }
     }
 }

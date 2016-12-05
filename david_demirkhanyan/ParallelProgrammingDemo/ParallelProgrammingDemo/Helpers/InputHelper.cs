@@ -12,7 +12,23 @@ namespace ParallelProgrammingDemo.Helpers
 {
     public class InputHelper
     {
+        #region Singleton
+        private static readonly Lazy<InputHelper> lazy = new Lazy<InputHelper>(() => new InputHelper());
+
+        public static InputHelper Instance
+        {
+            get
+            {
+                return lazy.Value;
+            }
+        }
+        #endregion
+
         private static Logger logger = LogManager.GetCurrentClassLogger();
+
+        private InputHelper()
+        {
+        }
 
         /// <summary>
         /// Instatiates the Query Vector Set and Data Vector sets
@@ -20,35 +36,35 @@ namespace ParallelProgrammingDemo.Helpers
         /// <param name="querySetFilePath">optional parameter, if set to null will read default query set file or randomize input</param>
         /// <param name="dataSetFilePath">optional parameter, if set to null will read default data set file or randomize input</param>
         /// <returns></returns>
-        public ComputationRequest<float> GetQueryAndDistanceMatrixFromFile(string querySetFilePath = null, string dataSetFilePath = null)
+        public ComputationRequest<float> GetQueryAndDistanceMatrix(string querySetFilePath = null, string dataSetFilePath = null)
         {
             var computationRequest = new ComputationRequest<float>();
 
-            var fillMatrix = new Action<Matrix<float>, string, bool, string>((target, providedPath, isDefaultEnabled, defaultPath) =>
+            var fillMatrix = new Func<string, bool, string, Matrix<float>>((providedPath, isDefaultEnabled, defaultPath) =>
             {
                 if(!String.IsNullOrEmpty(providedPath))
                 {
                     var parsedFile = this.ParseCSVFile(providedPath);
 
-                    target = (parsedFile != null) ? parsedFile : new RandomFloatMatrix();
+                    return (parsedFile != null) ? parsedFile : new RandomFloatMatrix();
                 }
                 else if(String.IsNullOrEmpty(providedPath) && isDefaultEnabled)
                 {
                     var parsedFile = this.ParseCSVFile(defaultPath);
 
-                    target = (parsedFile != null) ? parsedFile : new RandomFloatMatrix();
+                    return (parsedFile != null) ? parsedFile : new RandomFloatMatrix();
                 }
                 else
                 {
-                    target = new RandomFloatMatrix();
+                    return new RandomFloatMatrix();
                 }
             });
 
-            fillMatrix(computationRequest.QueryVectors, querySetFilePath, 
-                       ConfigurationHelper.Instance.DefaultFilesEnabled, ConfigurationHelper.Instance.QuerySetFilePath);
+            computationRequest.QueryVectors= fillMatrix(querySetFilePath, ConfigurationHelper.Instance.DefaultFilesEnabled, 
+                                                        ConfigurationHelper.Instance.QuerySetFilePath);
 
-            fillMatrix(computationRequest.DatasetVectors, dataSetFilePath,
-                      ConfigurationHelper.Instance.DefaultFilesEnabled, ConfigurationHelper.Instance.DataSetFilePath);
+            computationRequest.DatasetVectors = fillMatrix(dataSetFilePath, ConfigurationHelper.Instance.DefaultFilesEnabled, 
+                                                           ConfigurationHelper.Instance.DataSetFilePath);
 
             return computationRequest;
         }

@@ -11,6 +11,8 @@ namespace ParallelProgrammingDemo.Entities
         public Matrix<T> QueryVectors { get; set; }
         public Matrix<T> DatasetVectors { get; set; }
 
+        public Func<List<T>, List<T>, float> CalculateDistance { get; set; } 
+
         public ComputationRequest()
         {
             QueryVectors = null;

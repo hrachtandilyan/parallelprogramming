@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ParallelProgrammingDemo.Entities;
+using System.Diagnostics;
 
 namespace ParallelProgrammingDemo.Calculators
 {
-    public class SyncDistanceCalculator : BaseCalculator, IDistanceCalculator
+    public class SyncDistanceCalculator : IDistanceCalculator
     {
         /// <summary>
         /// Evaluates the distance between the according vectors and the overall running time
@@ -17,7 +18,14 @@ namespace ParallelProgrammingDemo.Calculators
         /// <returns></returns>
         public ComputationResult<float> GetComputationResult(ComputationRequest<float> request)
         {
-            throw new NotImplementedException();
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            var distanceMatrix = this.GetDistanceMatrix(request);
+
+            stopWatch.Stop();
+
+            return new ComputationResult<float>(distanceMatrix, stopWatch.Elapsed.ToString());
         }
 
         /// <summary>
@@ -28,7 +36,18 @@ namespace ParallelProgrammingDemo.Calculators
         /// <returns></returns>
         public Matrix<float> GetDistanceMatrix(ComputationRequest<float> request)
         {
-            throw new NotImplementedException();
+            var distanceMatrix = new Matrix<float>();
+            
+            for(int i=0; i<request.QueryVectors.Height; i++)
+            {
+                for(int j=0; j<request.DatasetVectors.Height; j++)
+                {
+                    distanceMatrix.AddElement(request.CalculateDistance(request.QueryVectors[i], 
+                                                                        request.DatasetVectors[j]), i, j);
+                }
+            }
+
+            return distanceMatrix;
         }
     }
 }
