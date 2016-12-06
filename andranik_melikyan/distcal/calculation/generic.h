@@ -8,7 +8,7 @@ namespace distcal
 {
    namespace calculation
    {
-      /// @brief Abstract class that defines the interface of engines
+      /// @brief Abstract class that defines the engine interface 
       class GenericEngine
       {
       public:
