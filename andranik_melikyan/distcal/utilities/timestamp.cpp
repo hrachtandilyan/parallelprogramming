@@ -43,8 +43,10 @@ namespace distcal
    std::ostream& operator <<( std::ostream& out, const Timestamp& rhs )
    {
       const char prevFill = out.fill();
+
       out << std::setfill('0');
       out << std::setw(2) << rhs.hour() << ':' << std::setw(2) << rhs.min() << ':' << std::setw(2) << rhs.sec() << '.' << std::setw(3) << rhs.mlsec();
+
       out << std::setfill(prevFill);
       return out;
    }

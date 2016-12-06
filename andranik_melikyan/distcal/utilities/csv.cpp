@@ -24,7 +24,7 @@ namespace distcal
             dimension /= 10;
          }
          
-         const std::string real = "\\s*\\d+(\\.\\d+)?\\s*";
+         const std::string real = "[[:space:]]*-?[[:digit:]]+(\\.[[:digit:]]+)?[[:space:]]*";
          return "^" + real + "(," + real + "){" + num + "}$";
       }
 

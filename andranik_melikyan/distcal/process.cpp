@@ -3,6 +3,7 @@
 #include "utilities/performance.h"
 
 #include <iostream>
+#include <fstream>
 
 namespace distcal
 {
@@ -20,13 +21,15 @@ namespace distcal
    {
       Log::info() << "fetching data";
       m_data.fetch( m_config.data_filename );
+	   Log::debug() << "data:\n" << m_data;
       m_queries.fetch( m_config.query_filename );
+	   Log::debug() << "queries:\n" << m_queries;
 
       Log::info() << "data fetched, calculating";
       Performance::Result perf = m_engine.calculate();
 
       Log::info() << "done: [" << perf.m_count << "] iterations in [" << perf.m_total / 1000 << "ms], averaged at [" << perf.m_average << "mcs]";
-      Log::debug() << m_result;
+      Log::debug() << "result:\n" << m_result;
    }
 
 }; //namespace distcal

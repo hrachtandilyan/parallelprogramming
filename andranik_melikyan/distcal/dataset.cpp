@@ -38,13 +38,18 @@ namespace distcal
 
    std::ostream& operator <<( std::ostream& out, const DataSet& rhs )
    {
+      std::ios::fmtflags storeFlags(out.flags());
+
       for( unsigned int i = 0; i < rhs.count(); ++i )
       {
+	      out << std::fixed;
          for( unsigned int j = 0; j < rhs.dimension(); ++j )
-            out << std::setw( 7 ) << rhs[i][j] << ' ';
+            out << std::setw( 7 ) << rhs[i][j] << ( j + 1 < rhs.dimension() ? ", " : "" );
          if( i != rhs.count() - 1 )
             out << std::endl;
       }
+
+      out.flags(storeFlags);
       return out;
    }
 
