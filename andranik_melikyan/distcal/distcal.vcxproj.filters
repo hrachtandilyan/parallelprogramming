@@ -57,5 +57,6 @@
     <ClInclude Include="utilities\csv.h">
       <Filter>utilities</Filter>
     </ClInclude>
+    <ClInclude Include="version.h" />
   </ItemGroup>
 </Project>

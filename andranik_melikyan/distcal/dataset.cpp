@@ -13,7 +13,7 @@ namespace distcal
    {
       if( filename.empty() )
       {
-         randomize( 0., 100. );
+         randomize( -1024., 1024. );
          return;
       }
 

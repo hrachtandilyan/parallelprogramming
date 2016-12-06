@@ -1,3 +1,4 @@
+#include "version.h"
 #include "process.h"
 #include "utilities/log.h"
 #include "utilities/performance.h"
@@ -14,7 +15,8 @@ namespace distcal
        m_result( m_config.data_count, m_config.query_count ),
        m_engine( m_data, m_queries, m_result )
    {
-      Log::debug() << m_config;
+      Log::info() << "distcal v" << Version;
+      Log::info() << m_config;
    };
 
    void Process::run()
