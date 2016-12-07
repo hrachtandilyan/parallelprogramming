@@ -1,6 +1,5 @@
 #include "config.h"
 
-#include <iostream>
 #include <fstream>
 #include <sstream>
 
@@ -12,57 +11,64 @@ namespace distcal
 {
    namespace config
    {
-      CommandLine::CommandLine(int argc, char* argv[])
-         :m_args(argc - 1)
+      namespace
       {
-         for( int i = 1; i < argc; ++i )
+         int toInt(const std::string& line)
+         {
+            int result;
+            std::istringstream integer(line + " ");
+            integer >> result;
+
+            if (!integer.good())
+            {
+               throw CommandLineException("Invalid integer " + line);
+            }
+
+            return result;
+         }
+
+      }; //namespace
+
+      CommandLine::CommandLine(int argc, char* argv[])
+      {
+         for (int i = 0; i < argc; ++i)
          {
             m_args.push_back(argv[i]);
          }
       }
 
-      std::string CommandLine::getParam(char flag, std::string defaultValue)
+      std::string CommandLine::getParam(const Flag& flag, std::string defaultValue)
       {
          auto it = get(flag);
          if( it == m_args.end() )
             return defaultValue;
 
-         return *++it;
+         return *it;
       }
 
-      size_t CommandLine::getParam(char flag, size_t defaultValue)
+      size_t CommandLine::getParam(const Flag& flag, size_t defaultValue)
       {
          auto it = get(flag);
          if( it == m_args.end() )
             return defaultValue;
 
-         int num = toInt(*++it);
-         if( num < 0 )
+         int size = toInt(*it);
+         if( size < 0 )
          {
             throw CommandLineException("Negative size not allowed");
          }
 
-         return num;
+         return size;
       }
 
-      bool CommandLine::getParam(char flag, bool defaultValue)
+      Log::Level CommandLine::getParam(const Flag& flag, Log::Level defaultValue)
       {
          auto it = get(flag);
          if( it == m_args.end() )
             return defaultValue;
 
-         return true;
-      }
-
-      Log::Level CommandLine::getParam(char flag, Log::Level defaultValue)
-      {
-         auto it = get(flag);
-         if( it == m_args.end() )
-            return defaultValue;
-
-         ++it;
          int level = toInt(*it);
-         if( level < 0 || level > Log::Level::DEBUG )
+         if( level < Log::Level::FATAL || level > Log::Level::DEBUG )
          {
             throw CommandLineException("Invalid verbosity level");
          }
@@ -70,18 +76,37 @@ namespace distcal
          return Log::Level(level);
       }
 
-      int CommandLine::toInt(const std::string& line)
+      bool CommandLine::getParam(const Flag& flag, bool defaultValue)
       {
-         int num;
-         std::istringstream iss(line);
-         iss >> num;
-         return num;
+         auto it = get(flag, false);
+         if (it == m_args.end())
+            return defaultValue;
+
+         return true;
       }
 
-      std::vector<std::string>::const_iterator CommandLine::get(char flag)
+      std::vector<std::string>::const_iterator CommandLine::get(const Flag& flag, bool expectValue)
       {
-         const std::string line = "-";
-         return find(m_args.begin(), m_args.end(), std::string(line + flag));
+         auto it = find(m_args.begin(), m_args.end(), flag.getShort());
+         if (it == m_args.end())
+         {
+            it = find(m_args.begin(), m_args.end(), flag.getLong());
+            if (it == m_args.end())
+            {
+               return it;
+            }
+         }
+
+         if (expectValue)
+         {
+            ++it;
+            if (it == m_args.end())
+            {
+               throw CommandLineException("No value for parameter " + flag.getShort() + "/" + flag.getLong());
+            }
+         }
+
+         return it;
       }
 
       namespace
@@ -106,41 +131,51 @@ namespace distcal
             return name;
          }
 
-         const Log::Level  default_verbosity        = Log::Level::INFO;
-         const std::string default_log_filename     = "";
-         const std::string default_data_filename    = "";
-         const std::string default_query_filename   = "";
-         const size_t      default_data_count       = 1024;
-         const size_t      default_query_count      = 1024
-         const size_t      default_vector_dimension = 512;
+         const Log::Level  default_verbosity      = Log::Level::INFO;
+         const std::string default_log_filename   = "";
+         const std::string default_data_filename  = "";
+         const std::string default_query_filename = "";
+         const size_t      default_data_count     = 1024;
+         const size_t      default_query_count    = 1024;
+         const size_t      default_dimension      = 512;
+         const bool        default_console_log    = false;
 
       }; //namespace
 
-      Config::Config(int argc, char* argv[]):
-         commandline      ( argc, argv ),
-         verbosity        ( commandline.getParam('v', default_verbosity) ),
-         log_filename     ( commandline.getParam('l', default_log_filename) ),
-         data_filename    ( commandline.getParam('D', default_data_filename) ),
-         query_filename   ( commandline.getParam('Q', default_query_filename) ),
-         data_count       ( commandline.getParam('d', default_data_count) ),
-         query_count      ( commandline.getParam('q', default_query_count) ),
-         vector_dimension ( commandline.getParam('s', default_vector_dimension) )
-      {
-         if( log_filename.empty() )
-            log_filename = generate_log_filename();
-         Log::instance().init(verbosity, log_filename);
+      Config::Config(int argc, char* argv[])
+         :commandline(argc, argv),
+          verbosity      (commandline.getParam(Flag("v", "verbosity"),     default_verbosity) ),
+          log_filename   (commandline.getParam(Flag("l", "log-file"),      default_log_filename) ),
+          data_filename  (commandline.getParam(Flag("D", "data-file"),     default_data_filename) ),
+          query_filename (commandline.getParam(Flag("Q", "queries-file"),  default_query_filename) ),
+          data_count     (commandline.getParam(Flag("d", "data-count"),    default_data_count) ),
+          query_count    (commandline.getParam(Flag("q", "queries-count"), default_query_count) ),
+          dimension      (commandline.getParam(Flag("s", "dimension"),     default_dimension) ),
+          console_log    (commandline.getParam(Flag("" , "console-log"),   default_console_log) )
+      {  
+         if (!console_log)
+         {
+            if (log_filename.empty())
+               log_filename = generate_log_filename();
+            Log::instance().init(verbosity, log_filename);
+         }
+         else 
+         {
+            Log::instance().init(verbosity, std::cout);
+         }
       }
 
       std::ostream& operator <<( std::ostream& out, const Config& rhs )
       {
          out << "configuration\n";
-         out << "\tVerbosity        = <" << rhs.verbosity        << ">\n";
-         out << "\tLog Filename     = <" << rhs.log_filename     << ">\n"; 
-         out << "\tData Filename    = <" << rhs.data_filename    << ">\n";
-         out << "\tQuery Filename   = <" << rhs.query_filename   << ">\n"; 
-         out << "\tData Count       = <" << rhs.data_count       << ">\n"; 
-         out << "\tQuery Count      = <" << rhs.query_count      << ">\n"; 
-         out << "\tVector Dimension = <" << rhs.vector_dimension << ">";
+         out << "\tVerbosity        = <" << rhs.verbosity       << ">\n";
+         out << "\tLog Filename     = <" << rhs.log_filename    << ">\n"; 
+         out << "\tData Filename    = <" << rhs.data_filename   << ">\n";
+         out << "\tQuery Filename   = <" << rhs.query_filename  << ">\n"; 
+         out << "\tData Count       = <" << rhs.data_count      << ">\n"; 
+         out << "\tQuery Count      = <" << rhs.query_count     << ">\n"; 
+         out << "\tVector Dimension = <" << rhs.dimension       << ">\n";
+         out << "\tConsole Logging  = <" << rhs.console_log     << ">";
          return out;
       }
 

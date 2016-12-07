@@ -11,7 +11,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="process.cpp" />
-    <ClCompile Include="config.cpp" />
     <ClCompile Include="dataset.cpp" />
     <ClCompile Include="utilities\log.cpp">
       <Filter>utilities</Filter>
@@ -25,10 +24,10 @@
     <ClCompile Include="utilities\csv.cpp">
       <Filter>utilities</Filter>
     </ClCompile>
+    <ClCompile Include="config.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="process.h" />
-    <ClInclude Include="config.h" />
     <ClInclude Include="utilities\exception.h">
       <Filter>utilities</Filter>
     </ClInclude>
@@ -58,5 +57,6 @@
       <Filter>utilities</Filter>
     </ClInclude>
     <ClInclude Include="version.h" />
+    <ClInclude Include="config.h" />
   </ItemGroup>
 </Project>

@@ -10,8 +10,8 @@ namespace distcal
 {
    Process::Process( int argc, char* argv[] )
       :m_config( argc, argv ), 
-       m_data( m_config.data_count, m_config.vector_dimension ),
-       m_queries( m_config.query_count, m_config.vector_dimension ),
+       m_data( m_config.data_count, m_config.dimension ),
+       m_queries( m_config.query_count, m_config.dimension ),
        m_result( m_config.data_count, m_config.query_count ),
        m_engine( m_data, m_queries, m_result )
    {
