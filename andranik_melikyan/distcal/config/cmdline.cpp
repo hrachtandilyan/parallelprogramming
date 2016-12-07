@@ -9,11 +9,13 @@ namespace distcal
       CommandLine::CommandLine(int argc, char* argv[])
          :m_args {
             std::make_pair(option_verbosity,     Value()),          //C++11 <3
-            std::make_pair(option_console_log,   Value()),
             std::make_pair(option_log_file,      Value()),
+            std::make_pair(option_no_log,        Value()),
+            std::make_pair(option_console_log,   Value()),
+
             std::make_pair(option_data_file,     Value()),
-            std::make_pair(option_data_count,    Value()),
             std::make_pair(option_queries_file,  Value()),
+            std::make_pair(option_data_count,    Value()),
             std::make_pair(option_queries_count, Value()),
             std::make_pair(option_dimension,     Value()), }
       {

@@ -12,14 +12,16 @@ namespace distcal
    {
       namespace
       {
-         const size_t      default_verbosity      = Log::Level::INFO;
-         const std::string default_log_filename   = "";
-         const std::string default_data_filename  = "";
-         const std::string default_query_filename = "";
-         const size_t      default_data_count     = 1024;
-         const size_t      default_query_count    = 1024;
-         const size_t      default_dimension      = 512;
-         const bool        default_console_log    = false;
+         const size_t      default_verbosity   = Log::Level::INFO;
+         const std::string default_log_file    = "";
+         const bool        default_no_log      = false;
+         const bool        default_console_log = false;
+
+         const std::string default_data_file   = "";
+         const std::string default_query_file  = "";
+         const size_t      default_data_count  = 1024;
+         const size_t      default_query_count = 1024;
+         const size_t      default_dimension   = 512;
 
       }; //namespace
 
@@ -37,11 +39,13 @@ namespace distcal
 
       public:
          size_t      verbosity;
+         std::string log_file;
+         bool        no_log;
          bool        console_log;
-         std::string log_filename;
-         std::string data_filename;
+
+         std::string data_file;
+         std::string query_file;
          size_t      data_count;
-         std::string query_filename;
          size_t      query_count;
          size_t      dimension;
       };

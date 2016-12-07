@@ -48,43 +48,54 @@ namespace distcal
 
       Config::Config(int argc, char* argv[])
          :commandline(argc, argv),
-          verbosity      ( convert(commandline.get(option_verbosity),     default_verbosity) ),
-          console_log    ( convert(commandline.get(option_console_log),   default_console_log) ),
-          log_filename   ( convert(commandline.get(option_log_file),      default_log_filename) ),
-          data_filename  ( convert(commandline.get(option_data_file),     default_data_filename) ),
-          data_count     ( convert(commandline.get(option_data_count),    default_data_count) ),
-          query_filename ( convert(commandline.get(option_queries_file),  default_query_filename) ),
-          query_count    ( convert(commandline.get(option_queries_count), default_query_count) ),
-          dimension      ( convert(commandline.get(option_dimension),     default_dimension) )
+          verbosity   ( convert(commandline.get(option_verbosity),     default_verbosity) ),
+          log_file    ( convert(commandline.get(option_log_file),      default_log_file) ),
+          console_log ( convert(commandline.get(option_console_log),   default_console_log) ),
+          no_log      ( convert(commandline.get(option_no_log),        default_no_log) ),
+
+          data_file   ( convert(commandline.get(option_data_file),     default_data_file) ),
+          query_file  ( convert(commandline.get(option_queries_file),  default_query_file) ),
+          data_count  ( convert(commandline.get(option_data_count),    default_data_count) ),
+          query_count ( convert(commandline.get(option_queries_count), default_query_count) ),
+          dimension   ( convert(commandline.get(option_dimension),     default_dimension) )
       {  
          if( verbosity < Log::FATAL || verbosity > Log::DEBUG )
          {
             throw ConfigException("Invalid verbosity level " + std::to_string(verbosity));
          }
 
-         if (!console_log)
+         if (!no_log)
          {
-            if (log_filename.empty())
-               log_filename = generate_log_filename();
-            Log::instance().init(Log::Level(verbosity), log_filename);
+            if (!console_log)
+            {
+               if (log_file.empty())
+                  log_file = generate_log_filename();
+               Log::instance().init(Log::Level(verbosity), log_file);
+            }
+            else
+            {
+               Log::instance().init(Log::Level(verbosity), std::cerr);
+            }
          }
-         else 
+         else
          {
-            Log::instance().init(Log::Level(verbosity), std::cout);
+            Log::instance().init(Log::Level::DISABLED);
          }
       }
 
       std::ostream& operator <<( std::ostream& out, const Config& rhs )
       {
          out << "configuration\n";
-         out << "\tVerbosity        = <" << rhs.verbosity       << ">\n";
-         out << "\tConsole Logging  = <" << rhs.console_log     << ">\n";
-         out << "\tLog Filename     = <" << rhs.log_filename    << ">\n"; 
-         out << "\tData Filename    = <" << rhs.data_filename   << ">\n";
-         out << "\tData Count       = <" << rhs.data_count      << ">\n"; 
-         out << "\tQuery Filename   = <" << rhs.query_filename  << ">\n"; 
-         out << "\tQuery Count      = <" << rhs.query_count     << ">\n"; 
-         out << "\tVector Dimension = <" << rhs.dimension       << ">";
+         out << "\tVerbosity        = <" << rhs.verbosity   << ">\n";
+         out << "\tLog Filename     = <" << rhs.log_file    << ">\n"; 
+         out << "\tLog Disabled     = <" << rhs.no_log      << ">\n";
+         out << "\tLog to console   = <" << rhs.console_log << ">\n";
+
+         out << "\tData Filename    = <" << rhs.data_file   << ">\n";
+         out << "\tQuery Filename   = <" << rhs.query_file  << ">\n"; 
+         out << "\tData Count       = <" << rhs.data_count  << ">\n"; 
+         out << "\tQuery Count      = <" << rhs.query_count << ">\n"; 
+         out << "\tVector Dimension = <" << rhs.dimension   << ">";
          return out;
       }
 

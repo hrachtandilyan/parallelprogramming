@@ -25,35 +25,35 @@ namespace distcal
 
    Log::Buffer Log::fatal()
    {
-      if( Log::disabled( Log::FATAL ) )
+      if( Log::disabled( Level::FATAL ) )
          return Buffer();
       return Buffer(Log::instance().m_stream, "FATAL:   ");
    }
 
    Log::Buffer Log::error()
    {
-      if( Log::disabled( Log::ERROR ) )
+      if( Log::disabled( Level::ERROR ) )
          return Buffer();
       return Buffer(Log::instance().m_stream, "ERROR:   ");
    }
 
    Log::Buffer Log::warning()
    {
-      if( Log::disabled( Log::WARNING ) )
+      if( Log::disabled( Level::WARNING ) )
          return Buffer();
       return Buffer(Log::instance().m_stream, "WARNING: ");
    }
 
 	Log::Buffer Log::info()
 	{
-      if( Log::disabled( Log::INFO ) )
+      if( Log::disabled( Level::INFO ) )
          return Buffer();
 		return Buffer(Log::instance().m_stream, "INFO:    ");
 	}
 
    Log::Buffer Log::debug()
    {
-      if( Log::disabled( Log::DEBUG ) )
+      if( Log::disabled( Level::DEBUG ) )
          return Buffer();
       return Buffer(Log::instance().m_stream, "DEBUG:   ");
    }

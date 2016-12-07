@@ -16,13 +16,14 @@ namespace distcal
 	class Log
 	{
 	public:
-      enum Level: size_t     ///< Enumerated levels of logs
+      enum Level     ///< Enumerated levels of logs
       {
-         FATAL   = 0,
-         ERROR   = 0,
-         WARNING = 1,
-         INFO    = 2,
-         DEBUG   = 3
+         DISABLED = -1,
+         FATAL    = 0,
+         ERROR    = 0,
+         WARNING  = 1,
+         INFO     = 2,
+         DEBUG    = 3
 		};
 
    private:
@@ -118,7 +119,7 @@ namespace distcal
       /// @brief Initializes logging with the given verbosity, to the specified file
       /// @param level,    Verbosity level, all messages with > level will be skipped
       /// @param filename, File to which all log calls will be output
-		void init(Level verbosity, std::string filename);
+		void init(Level verbosity, std::string filename = "");
 
       /// @brief Unconditional log, will always be logged, independent on the verbosity and will only be prefixed with timestamp
       /// @return A temporary Buffer object, which will process all subsequent Log output operator calls, and dump the message to the Log stream

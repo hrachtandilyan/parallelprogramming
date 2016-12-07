@@ -22,9 +22,9 @@ namespace distcal
    void Process::run()
    {
       Log::info() << "fetching data";
-      m_data.fetch( m_config.data_filename );
+      m_data.fetch( m_config.data_file );
 	   Log::debug() << "data:\n" << m_data;
-      m_queries.fetch( m_config.query_filename );
+      m_queries.fetch( m_config.query_file );
 	   Log::debug() << "queries:\n" << m_queries;
 
       Log::info() << "data fetched, calculating";

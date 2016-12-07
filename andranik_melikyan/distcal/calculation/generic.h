@@ -12,7 +12,7 @@ namespace distcal
       class GenericEngine
       {
       public:
-         enum EngineType: size_t       ///< Enumerated types of engines
+         enum EngineType       ///< Enumerated types of engines
          {
             QUADRATIC_TYPE = 0
          };
