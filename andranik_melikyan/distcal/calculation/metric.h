@@ -13,7 +13,7 @@ namespace distcal
    class Metric
    {
    public:
-      enum MetricType      ///< Enumerated types of metrics
+      enum MetricType: size_t       ///< Enumerated types of metrics
       {
          HAMMING_TYPE = 0,
          L1_TYPE,

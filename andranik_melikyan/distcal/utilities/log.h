@@ -16,7 +16,7 @@ namespace distcal
 	class Log
 	{
 	public:
-      enum Level     ///< Enumerated levels of logs
+      enum Level: size_t     ///< Enumerated levels of logs
       {
          FATAL   = 0,
          ERROR   = 0,

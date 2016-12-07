@@ -44,7 +44,7 @@ namespace distcal
       const std::regex csvLine(generate_regex(data.dimension()));
       std::istringstream lineStream;
 
-      for( int i = 0; i < data.count(); ++i )
+      for( size_t i = 0; i < data.count(); ++i )
       {
          std::string line;
          std::getline(m_file, line);
@@ -54,7 +54,7 @@ namespace distcal
          }
 
          lineStream.str(line + ',');
-         for( int j = 0; j < data.dimension(); ++j )
+         for( size_t j = 0; j < data.dimension(); ++j )
          {
             char dummy;
             lineStream >> data[i][j] >> dummy;

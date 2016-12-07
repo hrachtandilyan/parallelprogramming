@@ -1,9 +1,14 @@
 #include "version.h"
 
+#include <iostream>
+
 #include "process.h"
 #include "utilities/exception.h"
 
-#include <iostream>
+void printUsage()
+{
+
+}
 
 int main( int argc, char* argv[] )
 {
@@ -11,7 +16,7 @@ int main( int argc, char* argv[] )
    {
       distcal::Process(argc, argv).run();
    }
-   catch( distcal::CommandLineException ex )
+   catch( distcal::ConfigException ex )
    {
       std::cout << ex.what() << ": " << ex.msg() << std::endl;
       std::cout << "distcal v" << distcal::Version << "\n"

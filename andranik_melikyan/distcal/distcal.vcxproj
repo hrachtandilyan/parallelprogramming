@@ -142,7 +142,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="config.cpp" />
+    <ClCompile Include="config\cmdline.cpp" />
+    <ClCompile Include="config\config.cpp" />
+    <ClCompile Include="config\cmdline_helpers.cpp" />
     <ClCompile Include="dataset.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="process.cpp" />
@@ -156,7 +158,9 @@
     <ClInclude Include="calculation\generic.h" />
     <ClInclude Include="calculation\metric.h" />
     <ClInclude Include="calculation\quadratic.h" />
-    <ClInclude Include="config.h" />
+    <ClInclude Include="config\cmdline.h" />
+    <ClInclude Include="config\config.h" />
+    <ClInclude Include="config\cmdline_helpers.h" />
     <ClInclude Include="dataset.h" />
     <ClInclude Include="process.h" />
     <ClInclude Include="utilities\csv.h" />
