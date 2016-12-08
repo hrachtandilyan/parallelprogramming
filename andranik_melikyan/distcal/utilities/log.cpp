@@ -2,21 +2,28 @@
 
 #include <fstream>
 
+#include "../utilities/exception.h"
+
 namespace distcal
 {
 	Log* Log::m_instance;
 
-   void Log::init(Level verbosity, const std::ostream& out)
+   void Log::init(const config::Config& conf)
    {
-      m_verbosity = verbosity;
-      m_stream = std::auto_ptr<std::ostream>(new std::ostream(out.rdbuf()));
-   }
+      if( conf.no_log )
+      {
+         m_verbosity = Level::DISABLED;
+         return;
+      }
+      m_verbosity = Level(conf.verbosity);
 
-	void Log::init(Level verbosity, std::string filename)
-	{
-      m_verbosity = verbosity;
-      m_stream = std::auto_ptr<std::ostream>(new std::ofstream(filename));
-	}
+      if( conf.console_log )
+      {
+         m_stream = std::auto_ptr<std::ostream>(new std::ostream(std::cerr.rdbuf()));
+         return;
+      }
+      m_stream = std::auto_ptr<std::ostream>(new std::ofstream(conf.log_file));
+   }
 
    Log::Buffer Log::log()
    {

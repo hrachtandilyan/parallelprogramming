@@ -6,6 +6,7 @@
 #include <random>
 
 #include "utilities/csv.h"
+#include "utilities/log.h"
 
 namespace distcal
 {
@@ -16,9 +17,13 @@ namespace distcal
          randomize( -1024., 1024. );
          return;
       }
+      else
+      {
+         CSV datafile(filename);
+         datafile.fill(*this);
+      }
 
-      CSV datafile(filename);
-      datafile.fill(*this);
+      Log::debug() << *this;
    }
 
    void DataSet::randomize( double minimum, double maximum )

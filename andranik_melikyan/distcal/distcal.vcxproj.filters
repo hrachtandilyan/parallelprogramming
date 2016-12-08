@@ -7,9 +7,6 @@
     <Filter Include="calculation">
       <UniqueIdentifier>{ba530328-2528-40f8-a510-e52351c78733}</UniqueIdentifier>
     </Filter>
-    <Filter Include="config">
-      <UniqueIdentifier>{31f2a1d8-8287-4791-b215-fc92141ad5bd}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -27,15 +24,7 @@
     <ClCompile Include="utilities\csv.cpp">
       <Filter>utilities</Filter>
     </ClCompile>
-    <ClCompile Include="config\config.cpp">
-      <Filter>config</Filter>
-    </ClCompile>
-    <ClCompile Include="config\cmdline_helpers.cpp">
-      <Filter>config</Filter>
-    </ClCompile>
-    <ClCompile Include="config\cmdline.cpp">
-      <Filter>config</Filter>
-    </ClCompile>
+    <ClCompile Include="config.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="process.h" />
@@ -68,14 +57,6 @@
       <Filter>utilities</Filter>
     </ClInclude>
     <ClInclude Include="version.h" />
-    <ClInclude Include="config\config.h">
-      <Filter>config</Filter>
-    </ClInclude>
-    <ClInclude Include="config\cmdline.h">
-      <Filter>config</Filter>
-    </ClInclude>
-    <ClInclude Include="config\cmdline_helpers.h">
-      <Filter>config</Filter>
-    </ClInclude>
+    <ClInclude Include="config.h" />
   </ItemGroup>
 </Project>

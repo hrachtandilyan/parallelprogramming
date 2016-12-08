@@ -17,7 +17,7 @@ namespace distcal
       const std::string m_msg;                              \
    };                                                       \
 
-   /// @brief Exception for errors related to CSV file processing
+   /// @brief Exception for errors related to error caused by bad configuration 
    DEF_EXCEPTION(ConfigException, "Configuration exception")
 
    /// @brief Exception for errors related to CSV file processing

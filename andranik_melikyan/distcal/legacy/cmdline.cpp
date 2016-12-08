@@ -62,7 +62,7 @@ namespace distcal
       {
          for( auto it = m_args.begin(); it != m_args.end(); ++it )
          {
-            if( argument == it->first.getShort() || argument == it->first.getLong() )
+            if( it->first.compare(argument) )
             {
                return it;
             }

@@ -10,6 +10,8 @@
 
 #include <chrono>
 
+#include "../config.h"
+
 namespace distcal
 {
    /// @brief Singleton class for logging
@@ -111,15 +113,9 @@ namespace distcal
          return *m_instance;
       }
 
-      /// @brief Initializes logging with the given verbosity, to the specified stream
-      /// @param level, Verbosity level, all messages with > level will be skipped
-      /// @param out,   Stream to which all log calls will be output
-      void init(Level verbosity, const std::ostream& out);
-
-      /// @brief Initializes logging with the given verbosity, to the specified file
-      /// @param level,    Verbosity level, all messages with > level will be skipped
-      /// @param filename, File to which all log calls will be output
-		void init(Level verbosity, std::string filename = "");
+      /// @brief Initializes logging with the given configuration
+      /// @param conf, reference to program configuration
+      void init(const config::Config& conf);
 
       /// @brief Unconditional log, will always be logged, independent on the verbosity and will only be prefixed with timestamp
       /// @return A temporary Buffer object, which will process all subsequent Log output operator calls, and dump the message to the Log stream
@@ -136,7 +132,6 @@ namespace distcal
       /// @param level, The level which will be compared to the verbosity
       /// @return true if the level is higher than verbosity (logging for the given level is disabled) or false otherwise
       static bool disabled( Level level ) { return level > m_instance->m_verbosity; }
-
 
 		Level m_verbosity;                      ///< The current verbosity for logging
 		std::shared_ptr<std::ostream> m_stream; ///< The stream to which all messages will be output. This is a ofstream if logging was initialized with a filename

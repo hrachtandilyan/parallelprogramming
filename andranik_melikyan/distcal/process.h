@@ -1,6 +1,6 @@
 #pragma once
 
-#include "config/config.h"
+#include "config.h"
 
 #include "calculation/engine.h"
 #include "dataset.h"

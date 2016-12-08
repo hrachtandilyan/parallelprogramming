@@ -1,9 +1,10 @@
 #include "version.h"
 
 #include <iostream>
-#include <regex>
 
+#include "config.h"
 #include "process.h"
+
 #include "utilities/exception.h"
 
 int main( int argc, char* argv[] )
@@ -14,8 +15,8 @@ int main( int argc, char* argv[] )
    }
    catch( distcal::ConfigException ex )
    {
-      std::cout << ex.what() << ": " << ex.msg() << std::endl;
-      std::cout << "distcal v" << distcal::Version << "\n"
+      std::cerr << ex.what() << ": " << ex.msg() << std::endl;
+      std::cerr << "distcal v" << distcal::Version << "\n"
                 << "Usage: distcal [option] ..."   << "\n"
                 << "Options list:"                 << "\n"
                 << "\t-v/--verbosity      Verbosity [0-3]"        << "\n"
@@ -30,10 +31,6 @@ int main( int argc, char* argv[] )
    }                       
    catch( distcal::CsvException ex )
    {
-      std::cout << ex.what() << ": " << ex.msg() << std::endl;
-   }
-   catch (const std::regex_error& ex)
-   {
-      std::cout << ex.what();
+      std::cerr << ex.what() << ": " << ex.msg() << std::endl;
    }
 }

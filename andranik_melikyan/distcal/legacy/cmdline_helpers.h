@@ -37,6 +37,11 @@ namespace distcal
          
          bool isFlag() const { return m_isFlag; }
 
+         bool compare(const std::string& line) const
+         {
+            return this->getShort() == line || this->getLong() == line;
+         }
+
          bool operator ==(const Option& rhs) const
          {
             return this->m_short == rhs.m_short && this->m_long == rhs.m_long;
