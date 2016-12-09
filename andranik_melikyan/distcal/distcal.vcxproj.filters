@@ -58,5 +58,8 @@
     </ClInclude>
     <ClInclude Include="version.h" />
     <ClInclude Include="config.h" />
+    <ClInclude Include="utilities\progressbar.h">
+      <Filter>utilities</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

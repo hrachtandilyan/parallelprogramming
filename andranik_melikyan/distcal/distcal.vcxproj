@@ -163,6 +163,7 @@
     <ClInclude Include="utilities\exception.h" />
     <ClInclude Include="utilities\log.h" />
     <ClInclude Include="utilities\performance.h" />
+    <ClInclude Include="utilities\progressbar.h" />
     <ClInclude Include="utilities\timestamp.h" />
     <ClInclude Include="version.h" />
   </ItemGroup>

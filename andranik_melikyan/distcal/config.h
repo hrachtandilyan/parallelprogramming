@@ -52,6 +52,9 @@ namespace distcal
          size_t      data_count;
          size_t      query_count;
          size_t      dimension;
+
+         double      min;
+         double      max;
       };
 
       std::ostream& operator <<( std::ostream& out, const Config& rhs );

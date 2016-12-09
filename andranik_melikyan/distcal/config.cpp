@@ -26,7 +26,7 @@ namespace distcal
             do
             {
                name = "log_" + sign + ".txt";
-               sign = sign + "_" + (++suffix);     // correct, unless the program is launched more than 10 times in one second, which is quite hard to do
+               sign = sign + "_" + std::to_string(++suffix);
             }
             while( file_exists(name) );
             return name;
@@ -36,15 +36,19 @@ namespace distcal
          const Option option_log_file    ("l", "log-file");
          const Option option_no_log      ("" , "no-log", true);
          const Option option_console_log ("" , "console-log", true);
-                                         
+
          const Option option_data_file   ("D", "data-file");
          const Option option_query_file  ("Q", "queries-file");
          const Option option_data_count  ("d", "data-count");
          const Option option_query_count ("q", "queries-count");
          const Option option_dimension   ("s", "dimension");
 
+         const Option option_min         ("min" , "");
+         const Option option_max         ("max" , "");
+
+
          const size_t      default_verbosity   = 2; //Info
-         const std::string default_log_file    = generate_log_filename();
+         const std::string default_log_file    = "";
          const bool        default_no_log      = false;
          const bool        default_console_log = false;
 
@@ -53,6 +57,9 @@ namespace distcal
          const size_t      default_data_count  = 1024;
          const size_t      default_query_count = 1024;
          const size_t      default_dimension   = 512;
+
+         const double      default_min         = -1024.;
+         const double      default_max         =  1024.;
 
       }; //namespace
 
@@ -66,7 +73,10 @@ namespace distcal
           query_file  ( default_query_file ),
           data_count  ( default_data_count ),
           query_count ( default_query_count ),
-          dimension   ( default_dimension )
+          dimension   ( default_dimension ),
+
+          min         ( default_min ),
+          max         ( default_max )
       {  
          set(argc, argv);
       }
@@ -89,7 +99,7 @@ namespace distcal
                optionsStream >> verbosity;
                if( verbosity < 0 || verbosity > 3 )
                {
-                  throw ConfigException("Invalid verbosity level " + std::to_string(verbosity));
+                  throw ConfigException("Invalid verbosity level [" + std::to_string(verbosity) + "]");
                }
             }
             else if( option_log_file.compare(option) )
@@ -124,15 +134,28 @@ namespace distcal
             {
                optionsStream >> dimension;
             }
+            else if( option_min.compare(option) )
+            {
+               optionsStream >> min;
+            }
+            else if( option_max.compare(option) )
+            {
+               optionsStream >> max;
+            }
             else
             {
-               throw ConfigException("Invalid option " + option);
+               throw ConfigException("Invalid option [" + option + "]");
             }
 
             if( !optionsStream.good() )
             {
-               throw ConfigException("Invalid value for " + option);
+               throw ConfigException("Invalid value for [" + option + "]");
             }
+         }
+
+         if( !no_log && !console_log && log_file.empty() )
+         {
+            log_file = generate_log_filename();
          }
       }
 
@@ -148,7 +171,10 @@ namespace distcal
          out << "\tQuery Filename   = <" << rhs.query_file  << ">\n"; 
          out << "\tData Count       = <" << rhs.data_count  << ">\n"; 
          out << "\tQuery Count      = <" << rhs.query_count << ">\n"; 
-         out << "\tVector Dimension = <" << rhs.dimension   << ">";
+         out << "\tVector Dimension = <" << rhs.dimension   << ">\n";
+
+         out << "\tmin Coords       = <" << rhs.min         << ">\n";
+         out << "\tmax Coords       = <" << rhs.max         << ">";
          return out;
       }
 

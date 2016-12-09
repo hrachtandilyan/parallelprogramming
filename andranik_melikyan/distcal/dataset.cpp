@@ -5,25 +5,26 @@
 
 #include <random>
 
-#include "utilities/csv.h"
 #include "utilities/log.h"
+#include "utilities/csv.h"
+#include "utilities/exception.h"
 
 namespace distcal
 {
-   void DataSet::fetch( const std::string& filename )
+   bool DataSet::fetch( const std::string& filename )
    {
-      if( filename.empty() )
-      {
-         randomize( -1024., 1024. );
-         return;
-      }
-      else
+      try
       {
          CSV datafile(filename);
          datafile.fill(*this);
       }
+      catch( const CsvException& ex )
+      {
+         Log::error() << "Failed to load csv from [" << filename << "], reason: " << ex.msg();
+         return false;
+      }
 
-      Log::debug() << *this;
+      return true;
    }
 
    void DataSet::randomize( double minimum, double maximum )
@@ -39,6 +40,12 @@ namespace distcal
             m_dataset[i][j] = dist(rng);
          }
       }
+   }
+
+   void DataSet::dump(const std::string& filename) const
+   {
+      std::ofstream fileStream(filename);
+      fileStream << *this;
    }
 
    std::ostream& operator <<( std::ostream& out, const DataSet& rhs )

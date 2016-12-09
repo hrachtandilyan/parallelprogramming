@@ -28,9 +28,5 @@ int main( int argc, char* argv[] )
                 << "\t-d/--data-count     Data Count"             << "\n"
                 << "\t-q/--queries-count  Query Count"            << "\n"
                 << "\t-s/--dimention      Vector Dimension"       << std::endl;
-   }                       
-   catch( distcal::CsvException ex )
-   {
-      std::cerr << ex.what() << ": " << ex.msg() << std::endl;
    }
 }

@@ -25,15 +25,28 @@ namespace distcal
 
    void Process::run()
    {
-      Log::info() << "fetching data";
-      m_data.fetch( m_config.data_file );
-      Log::info() << "fetching queries";
-      m_queries.fetch( m_config.query_file );
+      std::cerr << "fetching data" << std::endl;
+      if( m_config.data_file.empty() || !m_data.fetch(m_config.data_file) )
+      {
+         Log::info() << "generating random data dataset";
+         m_data.randomize(m_config.min, m_config.max);
 
-      Log::info() << "data fetched, calculating";
+         Log::debug() << m_data;
+      }
+
+      std::cerr << "fetching queries" << std::endl;
+      if( m_config.query_file.empty() || !m_queries.fetch(m_config.query_file) )
+      {
+         Log::info() << "generating random queries dataset";
+         m_queries.randomize(m_config.min, m_config.max);
+
+         Log::debug() << m_queries;
+      }
+
+      std::cerr << "data fetched, calculating" << std::endl;
       Performance::Result perf = m_engine.calculate();
 
-      Log::info() << "done: [" << perf.m_count << "] iterations in [" << perf.m_total / 1000 << "ms], averaged at [" << perf.m_average << "mcs]";
+      std::cerr << "done: [" << perf.m_count << "] iterations in [" << perf.m_total / 1000 << "ms], averaged at [" << perf.m_average << "mcs]" << std::endl;
       std::cout << m_result;
    }
 

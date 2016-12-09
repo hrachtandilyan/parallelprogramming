@@ -25,7 +25,7 @@ namespace distcal
       
    private:
       const std::string m_filename;
-      std::ifstream m_file;
+      std::ifstream     m_file;
    };
 
 }; //namespace distcal

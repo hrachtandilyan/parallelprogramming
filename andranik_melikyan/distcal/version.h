@@ -4,5 +4,5 @@
 
 namespace distcal
 {
-   static const std::string Version = "0.34";
+   static const std::string Version = "0.36";
 };
