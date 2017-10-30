@@ -6,6 +6,7 @@
 #include "Distance.h"
 #include "CSVParser.h"
 #include "DataGenerator.h"
+#include "Calculation.h"
 
 namespace Input
 {
@@ -20,6 +21,7 @@ namespace Data
 {
 	std::vector<std::vector<float>> query_vectors;
 	std::vector<std::vector<float>> dataset_vectors;
+	std::vector<std::vector<float>> distances_matrix;
 }
 
 int main(int argc, char** argv)
@@ -89,9 +91,42 @@ int main(int argc, char** argv)
 	}
 
 	/// TODO
-	//for (i -> 1024)
-	//	for (j -> 1024)
-	//		matrix[i][j] = Distance::Hamming(query_vectors[i], Data::dataset[j]);
+	Calculation calc(Data::query_vectors, Data::dataset_vectors, Distance::Hamming);
+
+	std::vector<std::vector<float> > matrix = calc.Get();
+	
+
+	std::cout << "Query vector output: " << std::endl;
+	for (int i = 0; i < Data::query_vectors.size(); i++)
+	{
+		for (int j = 0; j < Data::query_vectors[i].size(); j++)
+		{
+			std::cout << Data::query_vectors[i][j] << " ";
+		}
+		std::cout << std::endl;
+	}
+
+	std::cout << "Dataset vector output: " << std::endl;
+	for (int i = 0; i < Data::dataset_vectors.size(); i++)
+	{
+		for (int j = 0; j < Data::dataset_vectors[i].size(); j++)
+		{
+			std::cout << Data::dataset_vectors[i][j] << " ";
+		}
+		std::cout << std::endl;
+	}
+
+	std::cout << "Result vector output: " << std::endl;
+	for (int i = 0; i < matrix.size(); i++)
+	{
+		for (int j = 0; j < matrix[i].size(); j++)
+		{
+			std::cout << matrix[i][j] << " ";
+		}
+		std::cout << std::endl;
+	}
+
+
 
 
 }

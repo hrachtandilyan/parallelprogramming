@@ -5,5 +5,5 @@
 class DataGenerator
 {
 public:
-	static void generate_data(std::vector<std::vector<float> >& vectors_to_fill, int seed = -1);
+	static void generate_data(std::vector<std::vector<float> >& vectors_to_fill);
 };
