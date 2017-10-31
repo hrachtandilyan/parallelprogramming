@@ -1,0 +1,4 @@
+﻿  Vector_Generator.cpp
+d:\work\projects\pp class\vectordistances\vectordistances\vector_generator.cpp(12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  VectorDistances.vcxproj -> D:\Work\Projects\PP Class\VectorDistances\Debug\VectorDistances.exe
+  VectorDistances.vcxproj -> D:\Work\Projects\PP Class\VectorDistances\Debug\VectorDistances.pdb (Partial PDB)
