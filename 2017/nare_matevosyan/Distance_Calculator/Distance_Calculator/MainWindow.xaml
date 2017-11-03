@@ -1,0 +1,36 @@
+﻿<Window x:Class="Distance_Calculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Distance_Calculator"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="768" Width="1024">
+    <Grid Background="#FF002B36">
+        <TextBox x:Name="textBoxQueryInput" HorizontalAlignment="Left" Height="23" Margin="30,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="370" Background="#FF073642" Foreground="#FFADADAD" BorderBrush="#FF06596E"/>
+        <TextBox x:Name="textBoxDatasetInput" HorizontalAlignment="Left" Height="23" Margin="571,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="370" Background="#FF073642" BorderBrush="#FF06596E" Foreground="#FFADADAD"/>
+        <Button x:Name="buttonBrowseQueryFile" Content=". . ." HorizontalAlignment="Left" Margin="405,135,0,0" VerticalAlignment="Top" Width="40" Click="ButtonBrowseQueryFile_OnClick" Foreground="#FF002B36" Background="#FF586E75" BorderBrush="#FF002B36"/>
+        <Button x:Name="buttonBrowseDatasetFile" Content=". . ." HorizontalAlignment="Left" Margin="946,135,0,0" VerticalAlignment="Top" Width="40" Click="ButtonBrowseDatasetFile_OnClick"  Background="#FF586E75" Foreground="#FF002B35" BorderBrush="#FF002B36"/>
+        <TextBlock x:Name="textBlockQueryVectorLength" HorizontalAlignment="Left" Margin="70,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC13231" FontStyle="Italic"/>
+        <TextBlock x:Name="textBlockQueryVectorCount" HorizontalAlignment="Left" Margin="311,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="1.806,0.689" Foreground="#FFC13231" FontStyle="Italic"/>
+        <TextBlock x:Name="textBlockDatasetVectorCount" HorizontalAlignment="Left" Margin="852,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC13231" FontStyle="Italic"/>
+        <TextBlock x:Name="textBlockDatasetVectorLength" HorizontalAlignment="Left" Margin="611,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="-0.101,0.501" Foreground="#FFC13231" FontStyle="Italic"/>
+        <Button x:Name="buttonStartCalculation" Content="Calculate" HorizontalAlignment="Center" Margin="10,187,0,0" VerticalAlignment="Top" Width="100" Click="ButtonStartCalculation_OnClick"  Foreground="#FF987F00" Background="#FF424D00" BorderBrush="#FF7E7E00" Height="30" FontSize="14" FontWeight="Bold"/>
+        <ScrollViewer x:Name="scrollView" HorizontalAlignment="Left" Height="100" Margin="30,10,0,0" VerticalAlignment="Top" Width="956" BorderBrush="#FF06596E" Background="#FF073642" Foreground="#FFADADAD">
+            <TextBlock x:Name="textBlockStatus" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top"  Width="921" Margin="10,5,0,5"/>
+        </ScrollViewer>
+        <ScrollViewer x:Name="scrollViewEngine1" HorizontalAlignment="Left" Height="80" Margin="30,246,0,0" VerticalAlignment="Top" Width="284" BorderBrush="#FF06596E" Background="#FF073642" Foreground="#FFADADAD">
+            <TextBlock x:Name="textBlockStatusEngine1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top"  Width="250" Margin="10,5,0,5"/>
+        </ScrollViewer>
+        <ScrollViewer x:Name="scrollViewImplementationL1" HorizontalAlignment="Left" Height="125" Margin="30,331,0,0" VerticalAlignment="Top" Width="284" BorderBrush="#FF06596E" Background="#FF073642" Foreground="#FFADADAD">
+            <TextBlock x:Name="textBlockStatusImplementationL1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top"  Width="250" Margin="10,5,0,5"/>
+        </ScrollViewer>
+        <ScrollViewer x:Name="scrollViewImplementationL2" HorizontalAlignment="Left" Height="125" Margin="30,461,0,0" VerticalAlignment="Top" Width="284" BorderBrush="#FF06596E" Background="#FF073642" Foreground="#FFADADAD">
+            <TextBlock x:Name="textBlockStatusImplementationL2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top"  Width="250" Margin="10,5,0,5"/>
+        </ScrollViewer>
+        <ScrollViewer x:Name="scrollViewImplementationHamming" HorizontalAlignment="Left" Height="125" Margin="30,591,0,0" VerticalAlignment="Top" Width="284" BorderBrush="#FF06596E" Background="#FF073642" Foreground="#FFADADAD">
+            <TextBlock x:Name="textBlockStatusImplementationHamming" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top"  Width="250" Margin="10,5,0,5"/>
+        </ScrollViewer>
+    </Grid>
+</Window>

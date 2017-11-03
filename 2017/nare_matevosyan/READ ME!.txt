@@ -1,0 +1,2 @@
+IN MainWindow.xaml.cs -> "Functions for updating scrollViews" REGION -> "private void OnChanged(object sender, FileSystemEventArgs e)" FUNCTION (line 172): 
+You should write your path of project! 
