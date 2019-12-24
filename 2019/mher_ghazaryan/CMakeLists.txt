@@ -11,6 +11,6 @@ else()
     target_compile_options(PPProject PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+if (${CMAKE_CXX_STANDARD} GREATER_EQUAL 17 AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_link_libraries(PPProject tbb)
 endif()

@@ -61,23 +61,28 @@ public:
 			return result;
 		}
 
-		size_t blockCount1D = std::lround(std::sqrt(static_cast<double>(maxThreads)));
+		const size_t blockCount1D = std::lround(std::sqrt(static_cast<double>(maxThreads)));
 		assert(blockCount1D);
 
-		size_t blockSize1 = (lhs.size() + blockCount1D - 1) / blockCount1D;
-		size_t blockSize2 = (rhs.size() + blockCount1D - 1) / blockCount1D;
+		const size_t blockSize1 = (lhs.size() + blockCount1D - 1) / blockCount1D;
+		const size_t blockSize2 = (rhs.size() + blockCount1D - 1) / blockCount1D;
 
 		std::vector<std::future<void>> futures(blockCount1D * blockCount1D - 1);
 		for (size_t block = 0; block < futures.size(); ++block)
 		{
 			const size_t block1 = block / blockCount1D;
 			const size_t block2 = block % blockCount1D;
+
+			const size_t blockStart1 = blockSize1 * block1;
+			const size_t blockStart2 = blockSize2 * block2;
 			futures[block] = std::async(std::launch::async, std::mem_fn(&CPP11Engine::calculateSequentially), this,
-				std::ref(result), std::cref(lhs), std::cref(rhs), block1 * blockSize1, blockSize1, block2 * blockSize2, blockSize2);
+				std::ref(result), std::cref(lhs), std::cref(rhs), blockStart1, blockSize1, blockStart2, blockSize2);
 		}
+		const size_t blockStart1 = blockSize1 * (blockCount1D - 1);
+		const size_t blockStart2 = blockSize2 * (blockCount1D - 1);
 		calculateSequentially(result, lhs, rhs,
-			blockSize1 * blockCount1D, lhs.size() - blockSize1 * blockCount1D,
-			blockSize2 * blockCount1D, rhs.size() - blockSize2 * blockCount1D);
+			blockStart1, lhs.size() - blockStart1,
+			blockStart2, rhs.size() - blockStart2);
 		for (std::future<void>& future : futures)
 			future.get();
 		return result;
@@ -86,9 +91,9 @@ public:
 private:
 	void calculateSequentially(std::vector<std::vector<ScalarType>>& result, const std::vector<VectorType>& lhs, const std::vector<VectorType>& rhs, size_t start1, size_t size1, size_t start2, size_t size2) const
 	{
-		for (size_t i = start1; i < size1; ++i)
+		for (size_t i = start1; i < start1 + size1; ++i)
 		{
-			for (size_t j = start2; j < size2; ++j)
+			for (size_t j = start2; j < start2 + size2; ++j)
 				result[i][j] = this->distanceFunction(lhs[i], rhs[j]);
 		}
 	}
