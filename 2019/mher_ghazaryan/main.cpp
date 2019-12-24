@@ -31,33 +31,46 @@ bool check(const std::vector<std::vector<T>>& result1, const std::vector<std::ve
 
 int main()
 {
-	DistanceCalculator<> calculator;//(3, 10, 10);
-	std::vector<std::vector<float>> l2Result1;
-	std::vector<std::vector<float>> l2Result2;
+	DistanceCalculator<> calculator;
+	std::vector<std::vector<float>> resultSequenced;
+	std::vector<std::vector<float>> resultCPP11;
+	bool success = false;
 
+	std::cout << "L1: " << "\n";
 	{
-		Stopwatch<> stopwatch;
-		l2Result1 = calculator.calculate(L2SequentialEngine<>());
+		Stopwatch<> stopwatch("L1Sequential");
+		resultSequenced = calculator.calculate(L1SequentialEngine<>());
 	}
-
 	{
-		Stopwatch<> stopwatch;
-		l2Result2 = calculator.calculate(L2CPP11Engine<>());
+		Stopwatch<> stopwatch("L1CPP11");
+		resultCPP11 = calculator.calculate(L1CPP11Engine<>());
 	}
+	success = check(resultSequenced, resultCPP11);
+	std::cout << "\t" << "CPP11: " << (success ? "Success" : "Error") << "\n";
 
-//	print_result(l2Result1);
-//	std::cout << "\n";
-//	print_result(l2Result2);
-
-	bool success = check(l2Result1, l2Result2);
-	std::cout << (success ? "Success" : "Error") << "\n";
-
-#if __cplusplus >= 201703L
+	std::cout << "L2: " << "\n";
 	{
-		Stopwatch<> stopwatch;
-		l2Result2 = calculator.calculate(L2MixedEngine<>());
+		Stopwatch<> stopwatch("L2Sequential");
+		resultSequenced = calculator.calculate(L2SequentialEngine<>());
 	}
-#endif
+	{
+		Stopwatch<> stopwatch("L2CPP11");
+		resultCPP11 = calculator.calculate(L2CPP11Engine<>());
+	}
+	success = check(resultSequenced, resultCPP11);
+	std::cout << "\t" << "CPP11: " << (success ? "Success" : "Error") << "\n";
+
+	std::cout << "Hamming: " << "\n";
+	{
+		Stopwatch<> stopwatch("HammingSequential");
+		resultSequenced = calculator.calculate(HammingSequentialEngine<>());
+	}
+	{
+		Stopwatch<> stopwatch("HammingCPP11");
+		resultCPP11 = calculator.calculate(HammingCPP11Engine<>());
+	}
+	success = check(resultSequenced, resultCPP11);
+	std::cout << "\t" << "CPP11: " << (success ? "Success" : "Error") << "\n";
 
 	return 0;
 }

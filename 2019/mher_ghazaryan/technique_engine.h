@@ -10,10 +10,6 @@
 #include <cassert>
 #include <functional>
 
-#if __cplusplus >= 201703L
-#include <execution>
-#endif
-
 template<class ScalarType = float, class VectorType = std::vector<ScalarType>>
 class SequentialDistanceEngine : public virtual CalculationEngine<ScalarType, VectorType>
 {
@@ -98,21 +94,3 @@ private:
 		}
 	}
 };
-
-#if __cplusplus >= 201703L
-template<class ScalarType = float, class VectorType = std::vector<ScalarType>>
-class CPP17Engine : public virtual CalculationEngine<ScalarType, VectorType>
-{
-public:
-	ScalarType distanceFunction(const VectorType& v1, const VectorType& v2) const override
-	{
-		return std::transform_reduce(std::execution::unseq,
-			v1.begin(), v1.end(),
-			v2.begin(),
-			ScalarType{}, std::plus<>(), [this](ScalarType lhs, ScalarType rhs)
-			{
-				return this->componentOperation(rhs - lhs);
-			});
-	}
-};
-#endif
