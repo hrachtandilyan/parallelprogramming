@@ -13,7 +13,7 @@
 template<class ScalarType = float, class VectorType = std::vector<ScalarType>>
 class SequentialDistanceEngine : public virtual CalculationEngine<ScalarType, VectorType>
 {
-public:
+protected:
 	ScalarType distanceFunction(const VectorType& v1, const VectorType& v2) const override
 	{
 		return std::inner_product(
@@ -36,7 +36,7 @@ public:
 		for (size_t i = 0; i < lhs.size(); ++i)
 		{
 			for (size_t j = 0; j < rhs.size(); ++j)
-				result[i][j] = this->distanceFunction(lhs[i], rhs[j]);
+				result[i][j] = this->distance(lhs[i], rhs[j]);
 		}
 		return result;
 	}
@@ -57,7 +57,7 @@ public:
 			return result;
 		}
 
-		const size_t blockCount1D = std::lround(std::sqrt(static_cast<double>(maxThreads)));
+		const size_t blockCount1D = std::sqrt(static_cast<double>(maxThreads));
 		assert(blockCount1D);
 
 		const size_t blockSize1 = (lhs.size() + blockCount1D - 1) / blockCount1D;
@@ -90,7 +90,7 @@ private:
 		for (size_t i = start1; i < start1 + size1; ++i)
 		{
 			for (size_t j = start2; j < start2 + size2; ++j)
-				result[i][j] = this->distanceFunction(lhs[i], rhs[j]);
+				result[i][j] = this->distance(lhs[i], rhs[j]);
 		}
 	}
 };
